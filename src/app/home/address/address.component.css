@@ -1,0 +1,49 @@
+:host {
+    height: 3.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem;
+    gap: .5rem;
+}
+
+h2 {
+    font-weight: 400;
+    font-size: .9rem;
+    color: rgba(0, 0, 0, 0.7);
+    filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));
+    margin: 0;
+}
+
+.address {
+    display: flex;
+    align-items: center;
+}
+
+.address mat-icon {
+    transform: scale(.8);
+    color: #FF8506;
+    margin-right: .5rem;
+}
+
+span {
+    color: black;
+    font-weight: 500;
+    font-size: 1rem;
+    filter: drop-shadow(.05rem .05rem 0.05rem #EAEAEA);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+[aria-label="Notifications icon"] {
+    transform: scale(1.4);
+    filter: drop-shadow(0 0 0.5rem #72727255);
+    background: linear-gradient(135deg, #909090, #757575) text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+}
+

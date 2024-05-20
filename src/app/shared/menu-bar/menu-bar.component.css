@@ -1,0 +1,34 @@
+:host {
+    position: fixed;
+    bottom: 1rem;
+    width: calc(100vw - 1.5rem);
+    max-width: calc(425px - 1.5rem);
+    background-color: #FEFEFE;
+}
+
+hr {
+    position: relative;
+    left: -.75rem;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 3rem;
+    line-height: .8;
+}
+
+mat-icon {
+    transform: scale(1.4);
+    filter: drop-shadow(0 0 0.5rem #72727255);
+    background: linear-gradient(135deg, #909090, #757575) text;
+    cursor: pointer;
+    color: transparent;
+}
+
+.active {
+    filter: drop-shadow(0 0 0.3rem #FF873288);
+    background: linear-gradient(135deg, #ff984f, #ff6e07) text;
+}

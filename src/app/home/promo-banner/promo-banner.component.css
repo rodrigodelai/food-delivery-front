@@ -1,0 +1,33 @@
+:host {
+    height: 20vh;
+    max-height: 10rem;
+    min-height: 6rem;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    gap: .5rem
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+li {
+    scroll-snap-align: center;
+    cursor: pointer;
+}
+
+img {
+    display: block;
+    height: 100%;
+    border-radius: .4rem;
+}

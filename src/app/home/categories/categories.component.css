@@ -1,0 +1,38 @@
+:host {
+    height: 2.35rem;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    gap: .5rem;
+    overflow-x: hidden;
+    height: 100%;
+    align-items: center;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+li:first-of-type {
+    background: linear-gradient(135deg, #ff984f, #ff6e07);
+    color: white;
+}
+
+li {
+    cursor: pointer;
+    padding: .5rem .75rem;
+    border-radius: .5rem;
+    text-transform: capitalize;
+    background: linear-gradient(135deg, #F8F8F8, #E0E0E0);
+    color: rgba(0, 0, 0, 0.7);
+    filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));
+    scroll-snap-align: center;
+}
+
