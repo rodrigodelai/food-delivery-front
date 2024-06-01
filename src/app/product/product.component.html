@@ -1,0 +1,6 @@
+<app-product-header></app-product-header>
+<app-product-details></app-product-details>
+<app-product-options (bagChange)="updateBag($event)"></app-product-options>
+<app-product-notes></app-product-notes>
+<button type="button" (click)="onSubmit()"> Adicionar – {{ finalPrice | currency:'BRL' }}</button>
+<app-menu-bar></app-menu-bar>

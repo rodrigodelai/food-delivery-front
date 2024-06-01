@@ -1,0 +1,6 @@
+<button aria-label="Back button" (click)="onArrow()">
+    <mat-icon>arrow_back_ios</mat-icon>
+</button>
+<button aria-label="Favorite button" (click)="onHeart()">
+    <mat-icon [ngClass]="{ filled: fontIcon === 'favorite' }">{{ fontIcon }}</mat-icon>
+</button>

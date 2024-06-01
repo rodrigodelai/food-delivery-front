@@ -1,0 +1,37 @@
+:host {
+    display: flex;
+    justify-content: space-between;
+    padding: .75rem;
+    position: absolute;
+    width: 100vw;
+    max-width: 425px;
+}
+
+button {
+    border-radius: 50%;
+    border: none;
+    width: 3em;
+    height: 3em;
+    cursor: pointer;
+    background-color: #5B585755;
+    color: #FAFAFA;
+}
+
+button:hover {
+    background-color: #5B585799;
+}
+
+button:first-of-type mat-icon {
+    translate: .15em .05em;
+    scale: .85;
+}
+
+button:last-of-type mat-icon {
+    translate: 0.005em .1em;
+    scale: .9;
+}
+
+mat-icon.filled {
+    background: linear-gradient(135deg, #fc6435, #fe4e19) text;
+    -webkit-text-fill-color: transparent;
+}

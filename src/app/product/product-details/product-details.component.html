@@ -1,0 +1,17 @@
+<img src="../../../assets/img/burguer-1.avif" alt="Burguer image">
+<!-- <hr> -->
+<div class="text">
+    <div class="title">
+        <h2>{{ product.title }}</h2>
+        @if (product.promoPrice) {
+            <span>Promo</span>
+        }
+    </div>
+    <div class="price">
+        @if (product.promoPrice) {
+            <span>{{ product.promoPrice | currency:'BRL' }}</span>
+        }
+        <span>{{ product.price | currency:'BRL' }}</span>
+    </div>
+    <p>{{ product.description }}</p>
+</div>

@@ -1,5 +1,6 @@
 export interface Banner {
-    title: string,
-    src: string,
-    productId: string
+    id: number,
+    name: string,
+    base64: string,
+    productId: number
 }

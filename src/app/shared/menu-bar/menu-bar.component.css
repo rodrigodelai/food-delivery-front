@@ -1,14 +1,17 @@
 :host {
     position: fixed;
-    bottom: 1rem;
-    width: calc(100vw - 1.5rem);
-    max-width: calc(425px - 1.5rem);
+    bottom: 0;
+    width: calc(100vw);
+    max-width: calc(425px);
     background-color: #FEFEFE;
+    /* background-color: #EFEFEF; */
+    translate: -.75rem 0;
+    padding-bottom: 1rem;
+    transition: translate .5s ease-in-out;
 }
 
-hr {
-    position: relative;
-    left: -.75rem;
+:host.hide {
+    translate: -.75rem 5rem;
 }
 
 ul {

@@ -6,6 +6,7 @@
     color: rgba(0, 0, 0, 0.95);
     cursor: pointer;
     font-size: min(14vw/4, 1rem);
+    height: 100%;
 }
 
 .cover {
@@ -30,6 +31,10 @@
     filter: drop-shadow(0 0 0.5em #72727255);
     background: linear-gradient(135deg, #edecec, #b8b7b7) text;
     -webkit-text-fill-color: transparent;
+}
+
+.cover mat-icon.filled {
+    background: linear-gradient(135deg, #fc6435, #fe4e19) text;
 }
 
 img {
@@ -67,12 +72,12 @@ p {
     filter: drop-shadow(0 0 0.2em rgb(255, 255, 255));
 }
 
-.price span:last-child {
+.price span:nth-child(even) {
     text-decoration: line-through;
     color: rgba(0, 0, 0, 0.7);
 }
 
-.price span:first-child {
+.price span:nth-child(odd) {
     filter: drop-shadow(0 0 0.2em rgb(255, 255, 255));
     font-weight: 500;
 }

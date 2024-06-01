@@ -1,6 +1,7 @@
 :host {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: calc(100vh - 4.75rem);
+    justify-content: start;
+    padding: .75rem;
+    /* padding-bottom: 5.5rem; */
 }

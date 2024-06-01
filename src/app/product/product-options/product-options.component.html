@@ -1,0 +1,33 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ optionsList.title }}
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list role="list">
+      @for (option of optionsList.options; track option) {
+        <mat-list-item role="listitem">
+          <div class="option-item" (click)="onAdd(option)">
+            <img src="../../../assets/img/burguer-1.avif" alt="Adicional">
+            <div class="text">
+              <h3>{{ option.name }}</h3>
+              <p>{{ option.price | currency:'BRL' }}</p>
+            </div>
+            <div class="selection">
+              <button aria-label="Remove button" (click)="onRemove(option, $event)" [ngClass]="{ hidden: !option.quantity }">
+                <mat-icon fontIcon="remove"></mat-icon>
+              </button>
+              <p [ngClass]="{ hidden: !option.quantity }"> {{ option.quantity }}</p>
+              <button aria-label="Add button" (click)="onAdd(option, $event)">
+                <mat-icon fontIcon="add"></mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-list-item>
+      } 
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>

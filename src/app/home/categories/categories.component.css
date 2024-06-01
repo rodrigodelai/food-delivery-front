@@ -20,7 +20,7 @@ ul {
     display: none;
 }
 
-li:first-of-type {
+.active {
     background: linear-gradient(135deg, #ff984f, #ff6e07);
     color: white;
 }

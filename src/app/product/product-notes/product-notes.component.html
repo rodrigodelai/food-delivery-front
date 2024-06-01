@@ -1,0 +1,10 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Observações </mat-panel-title>
+      <mat-panel-description> </mat-panel-description>
+    </mat-expansion-panel-header>
+    <textarea maxlength="128" [(ngModel)]="text" placeholder="Ex: tirar a cebola, maionese à parte, etc."></textarea>
+    <div>{{ text.length }} / 128</div>
+  </mat-expansion-panel>
+</mat-accordion>

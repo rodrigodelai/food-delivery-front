@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Banner } from '../../model/banner';
+import { BannerService } from '../../services/banner.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-promo-banner',
@@ -10,19 +12,14 @@ import { Banner } from '../../model/banner';
 })
 export class PromoBannerComponent {
 
-  banners: Banner[];
+  banners!: Banner[];
 
-  constructor() {
-    this.banners = [ 
-      { title: "Promo 2", src: "../../assets/img/banner-2.webp", productId: "2"},
-      { title: "Promo 1", src: "../../assets/img/banner-1.jpg", productId: "1"},
-      { title: "Promo 3", src: "../../assets/img/banner-3.webp", productId: "3"}
-    ];
+  constructor(private service: BannerService, private router: Router) {
+    this.service.list().subscribe(v => this.banners = v);
   }
 
-  log(event: any) {
-    console.log(event);
-    
+  onBanner(id: number) {
+    this.router.navigate(['/product', id]);
   }
 
 }

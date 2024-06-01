@@ -1,7 +1,13 @@
 <ul>
     @for (banner of banners; track banner) {
         <li>
-            <img [src]="banner.src" [alt]="banner.title">
+            <img [src]="'data:image/jpeg;base64,' + banner.base64" [alt]="banner.name" (click)="onBanner(banner.productId)">
+        </li>
+        <li>
+            <img [src]="'data:image/jpeg;base64,' + banner.base64" [alt]="banner.name" (click)="onBanner(banner.productId)">
+        </li>
+        <li>
+            <img [src]="'data:image/jpeg;base64,' + banner.base64" [alt]="banner.name" (click)="onBanner(banner.productId)">
         </li>
     }
 </ul>
