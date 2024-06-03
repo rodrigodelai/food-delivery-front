@@ -1,7 +1,11 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: block;
+    /* flex-direction: column; */
     height: calc(100vh - 4.5rem);
     padding: .75rem;
+    overflow: auto;
+}
+
+app-menu-bar {
+    translate: calc(-100% + .75rem) 0;
 }

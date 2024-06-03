@@ -1,0 +1,15 @@
+<!-- <h2>Resumo da compra</h2> -->
+<ul>
+  <li>
+    <span>Subtotal</span>
+    <span>{{ subtotal | currency : "BRL" }}</span>
+  </li>
+  <li>
+    <span>Entrega</span>
+    <span>{{ deliveryFee | currency : "BRL" }}</span>
+  </li>
+  <li>
+    <span>Taxa de serviço</span>
+    <span>{{ taxes | currency : "BRL" }}</span>
+  </li>
+</ul>

@@ -1,0 +1,27 @@
+:host {
+    font-size: min(4vw + .15rem, 1rem);
+    padding-bottom: .25rem;
+}
+
+h2 {
+    font-size: 1.1em;
+}
+
+ul {
+    margin-top: .5em;
+    list-style: none;
+    font-size: .9em;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+}
+
+span:nth-child(odd) {
+    color: #000000B3;
+}
+
+span:nth-child(even) {
+    font-weight: 500;
+}

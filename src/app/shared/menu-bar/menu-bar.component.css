@@ -4,7 +4,6 @@
     width: calc(100vw);
     max-width: calc(425px);
     background-color: #FEFEFE;
-    /* background-color: #EFEFEF; */
     translate: -.75rem 0;
     padding-bottom: 1rem;
     transition: translate .5s ease-in-out;

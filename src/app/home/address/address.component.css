@@ -7,12 +7,22 @@
     gap: .5rem;
 }
 
+:host > div {
+    translate: 0 -.35rem;
+}
+
 h2 {
     font-weight: 400;
     font-size: .9rem;
     color: rgba(0, 0, 0, 0.7);
     filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));
     margin: 0;
+    display: inline;
+}
+
+span mat-icon {
+    translate: -.1rem .5rem;
+    transform: scale(.8);
 }
 
 .address {
@@ -23,10 +33,10 @@ h2 {
 .address mat-icon {
     transform: scale(.8);
     color: #FF8506;
-    margin-right: .5rem;
+    margin-right: .15rem;
 }
 
-span {
+.address span {
     color: black;
     font-weight: 500;
     font-size: 1rem;

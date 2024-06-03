@@ -1,0 +1,27 @@
+:host {
+    font-size: min(4vw + .15rem, 1rem);
+    padding: .25rem 0;
+}   
+
+h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
+    margin-bottom: 0;
+}
+
+button {
+    font-size: 1em;
+    margin: .75em 0;
+    width: 100%;
+    align-self: center;
+    height: 3em;
+    background: linear-gradient(135deg, #ff984f, #ff6e07);
+    border: none;
+    border-radius: .25em;
+    color: #FEFEFE;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}

@@ -1,0 +1,38 @@
+:host {
+    font-size: min(4vw + .15rem, 1rem);
+}
+
+ul {
+    list-style: none;
+}
+
+ul:last-of-type {
+    display: flex;
+    gap: .5em;
+    justify-content: space-evenly;
+}
+
+ul:last-of-type li {
+    width: 100%;
+}
+
+button {
+    font-size: .8em;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.7);
+    background-color: transparent;
+    border: .1em solid #EEEEEE;
+    border-radius: .35em;
+    padding-right: .45em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:  100%;
+    padding: .25em .5em .25em 0;
+}
+
+mat-icon {
+    transform: scale(.6);
+    color: #FF8506;
+}

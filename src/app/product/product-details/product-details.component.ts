@@ -20,8 +20,7 @@ export class ProductDetailsComponent {
         title: 'Top Cheddar',
         description: 'Blend suculento com 150 g de carne bovina, acompanhado por duas fatias de queijo cheddar, picles, cebola roxa e nosso maravilhoso molho da casa.',
         price: 24.98,
-        promoPrice: 21.49,
-        optionsIds: [1, 2]
+        promoPrice: 21.49
     }
   }
 
