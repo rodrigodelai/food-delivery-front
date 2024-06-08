@@ -1,5 +1,5 @@
 <ul>
-    @for (category of categories; track category) {
-        <li (click)="onCategory(category.id, $event)" [ngClass]="{ active: category.id == selectedCategory }">{{ category.name }}</li>
+    @for (category of categories; track category; let index = $index) {
+        <li (click)="onCategory(index, $event)" [ngClass]="{ active: index == selectedCategory }">{{ category.name }}</li>
     }
 </ul>

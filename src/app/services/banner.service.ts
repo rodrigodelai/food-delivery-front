@@ -2,16 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { take } from 'rxjs';
 import { Banner } from '../model/banner';
+import { CrudService } from './crud.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BannerService {
+export class BannerService extends CrudService<Banner> {
 
-  constructor(private http: HttpClient) {}
-
-  list() {
-    return this.http.get<Banner[]>('/api/banners').pipe(take(1));
+  constructor(http: HttpClient) {
+    super(http, 'banner');
   }
 
 }

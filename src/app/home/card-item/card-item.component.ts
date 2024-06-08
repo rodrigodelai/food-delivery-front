@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class CardItemComponent {
 
   @Input() id: number;
-  @Input() title: string;
+  @Input() name: string;
   @Input() description: string;
   @Input() price: number;
   @Input() promoPrice?: number;
@@ -20,7 +20,7 @@ export class CardItemComponent {
 
   constructor() {
     this.id = 0;
-    this.title = "Title";
+    this.name = "Name";
     this.description = "Description";
     this.price = 0;
     this.fontIcon = "favorite_outline";

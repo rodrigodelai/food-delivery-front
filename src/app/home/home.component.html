@@ -1,8 +1,8 @@
 <app-address></app-address>
 <hr>
-<app-promo-banner></app-promo-banner>
+<app-promo-banner [banners]="banners" (banner)="toProduct($event)"></app-promo-banner>
 <hr>
-<app-categories (selected)="changeSelectedCategory($event)"></app-categories>
+<app-categories [categories]="categories" (selected)="changeSelectedCategory($event)"></app-categories>
 <hr>
-<app-products [selectedCategory]="selectedCategory"></app-products>
+<app-products [products]="products" (card)="toProduct($event)"></app-products>
 <app-menu-bar [canHide]="true" ></app-menu-bar>

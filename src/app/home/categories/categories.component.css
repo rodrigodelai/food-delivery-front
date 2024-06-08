@@ -34,5 +34,8 @@ li {
     color: rgba(0, 0, 0, 0.7);
     filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));
     scroll-snap-align: center;
+    flex: 1;
+    justify-content: center;
+    text-align: center;
 }
 

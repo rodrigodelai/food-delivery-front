@@ -1,18 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ShortCategory } from '../model/short-category';
-import { take } from 'rxjs';
 import { Category } from '../model/category';
+import { CrudService } from './crud.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class CategoryService extends CrudService<Category> {
 
-  constructor(private http: HttpClient) {}
-
-  list() {
-    return this.http.get<Category[]>('/api/categories').pipe(take(1));
+  constructor(http: HttpClient) {
+    super(http, 'category');
   }
 
 }

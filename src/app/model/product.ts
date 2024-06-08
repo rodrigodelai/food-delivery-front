@@ -1,8 +1,10 @@
+import { OptionsList } from "./options-list";
+
 export interface Product {
     id: number,
-    title: string,
+    name: string,
     description: string,
     price: number,
     promoPrice?: number,
-    optionsIds?: number[];
+    optionsLists?: OptionsList[];
 }

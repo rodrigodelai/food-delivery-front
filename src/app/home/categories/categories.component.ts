@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { CategoryService } from '../../services/category.service';
-import { ShortCategory } from '../../model/short-category';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { Category } from '../../model/category';
 
 @Component({
   selector: 'app-categories',
@@ -11,20 +10,20 @@ import { NgClass } from '@angular/common';
   styleUrl: './categories.component.css'
 })
 export class CategoriesComponent {
-  categories!: ShortCategory[];
-  selectedCategory: number;
+
+  @Input() categories!: Category[];
+  selectedCategory!: number;
   @Output() selected!: EventEmitter<number>;
 
-  constructor(service: CategoryService) {
-    this.selectedCategory = 1;
-    service.list().subscribe(v => this.categories = v);
+  constructor() {
+    this.selectedCategory = 0;
     this.selected = new EventEmitter<number>;
   }
 
-  onCategory(id: number, event: MouseEvent) {
+  onCategory(index: number, event: MouseEvent) {
     this.scrollAndCentralizeElement(event);
-    this.selectedCategory = id;
-    this.selected.emit(id);
+    this.selectedCategory = index;
+    this.selected.emit(index);
   }
   
   private scrollAndCentralizeElement(event: MouseEvent) {

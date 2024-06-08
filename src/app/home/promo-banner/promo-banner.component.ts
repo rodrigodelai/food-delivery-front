@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Banner } from '../../model/banner';
 import { BannerService } from '../../services/banner.service';
 import { Router } from '@angular/router';
@@ -12,14 +12,15 @@ import { Router } from '@angular/router';
 })
 export class PromoBannerComponent {
 
-  banners!: Banner[];
+  @Input() banners!: Banner[];
+  @Output() banner: EventEmitter<number>;
 
-  constructor(private service: BannerService, private router: Router) {
-    this.service.list().subscribe(v => this.banners = v);
+  constructor() {
+    this.banner = new EventEmitter<number>();
   }
 
   onBanner(id: number) {
-    this.router.navigate(['/product', id]);
+    this.banner.emit(id);
   }
 
 }
