@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
-import { delay, take } from 'rxjs';
+import { take } from 'rxjs';
  
-export class CrudService<T extends {id: number}> {
+export class CrudService<T extends {id?: number}> {
 
   protected readonly API_URL: string;
 

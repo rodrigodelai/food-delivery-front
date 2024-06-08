@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MenuBarComponent } from '../shared/menu-bar/menu-bar.component';
 import { ProductHeaderComponent } from './product-header/product-header.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductOptionsComponent } from './product-options/product-options.component';
-import { CurrencyPipe } from '@angular/common';
-import { Option } from '../model/option';
-import { Router } from '@angular/router';
+import { CurrencyPipe, Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductNotesComponent } from './product-notes/product-notes.component';
 import { Product } from '../model/product';
+import { Option } from '../model/option';
+import { OrderService } from '../services/order.service';
+import { Operation } from '../model/operation';
 
 @Component({
   selector: 'app-product',
@@ -18,27 +20,48 @@ import { Product } from '../model/product';
 })
 export class ProductComponent {
 
-  product: Product;
-  finalPrice: number;
+  product!: Product;
+  finalPrice!: number;
+  @ViewChild(ProductNotesComponent) notes!: ProductNotesComponent;
 
-  constructor(private router: Router) {
-    this.product = {
-        id: 1,
-        title: 'Top Cheddar',
-        description: 'Blend suculento com 150 g de carne bovina, acompanhado por duas fatias de queijo cheddar, picles, cebola roxa e nosso maravilhoso molho da casa.',
-        price: 24.98,
-        promoPrice: 21.49,
-        optionsIds: [1, 2]
-    }
-    this.finalPrice = this.product.promoPrice ? this.product.promoPrice : this.product.price;
+  constructor(private router: Router, 
+              private route: ActivatedRoute,
+              private location: Location,
+              private orderService: OrderService) {
+    this.route.data.subscribe(data => {
+      this.product = data['product'];
+      this.finalPrice = this.product.promoPrice ? this.product.promoPrice : this.product.price;
+    })
   }
 
-  updateBag(price: number) {
+  handleSelection(selection: { option: Option, operation: Operation }) {
+    this.orderService.createItemIfDoesntExist(this.product);
+    this.orderService.addOptionToProductItem(selection.option);
+    this.updateBag(selection.operation * selection.option.price);
+  }
+
+  private updateBag(price: number) {
     this.finalPrice += price;
   }
 
+  onArrow() {
+    this.location.back();
+  }
+
+  onHeart(likes: boolean) {
+    //TO-DO: Save product at Local Storage;
+    if (likes) console.log("Save product at Local Storage");
+    else console.log("Remove product from Local Storage");
+  }
+
   onSubmit() {
-    //TO-DO: Save order at Local Storage;
+    this.orderService.createOrderIfDoesntExist();
+    this.orderService.createItemIfDoesntExist(this.product);
+    this.orderService.addNotesToItem(this.notes.text);
+    this.orderService.addItemToOrder();
+
+    console.log("Order now: ", JSON.parse(this.orderService.createOrderIfDoesntExist()));
+
     this.router.navigate(['bag']);
   }
   

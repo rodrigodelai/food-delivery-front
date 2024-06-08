@@ -1,6 +1,8 @@
 export interface Option {
-    id: number,
+    id?: number,
     name: string,
     price: number,
-    quantity?: number
+    quantity?: number,
+    imageName?: string,
+    optionsListName?: string
 }

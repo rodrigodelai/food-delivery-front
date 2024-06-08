@@ -1,7 +1,7 @@
 import { Option } from "./option";
 
 export interface OptionsList {
-    id: number,
+    id?: number,
     name: string,
     options: Option[]
 }   

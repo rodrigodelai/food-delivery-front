@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output,  } from '@angular/core';
 import { CurrencyPipe, NgClass } from '@angular/common'
 import { MatExpansionModule } from '@angular/material/expansion';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Option } from '../../model/option';
 import { OptionsList } from '../../model/options-list';
+import { Operation } from '../../model/operation';
 
 @Component({
   selector: 'app-product-options',
@@ -14,15 +15,11 @@ import { OptionsList } from '../../model/options-list';
   styleUrl: './product-options.component.css'
 })
 export class ProductOptionsComponent {
-  @Input() optionsList: OptionsList;
-  @Output() bagChange: EventEmitter<number>;
+  @Input() optionsList!: OptionsList;
+  @Output() selected: EventEmitter<{ option: Option, operation: Operation } >
 
   constructor() {
-    this.optionsList = {
-        title: 'Adicionais',
-        options: [{ name: 'Cebola', price: 1234 }, { name: 'Alface', price: 1.5 }, { name: 'Bacon', price: 2.98 }, { name: 'Queijo', price: 1.99 }]
-    }
-    this.bagChange = new EventEmitter();
+    this.selected = new EventEmitter();
   }
 
   onAdd(selected: Option, event?: MouseEvent) {
@@ -31,14 +28,20 @@ export class ProductOptionsComponent {
     else
       selected.quantity = 1;
 
-    this.bagChange.emit(selected.price);
+    selected = { ...selected, optionsListName: this.optionsList.name };
+    
+    this.selected.emit({ option: selected, operation: Operation.ADD });
+
     event?.stopPropagation();
   }
 
   onRemove(selected: Option, event?: MouseEvent) {
     if (selected.quantity && selected.quantity > 0) {
       selected.quantity--;
-      this.bagChange.emit(-selected.price);
+  
+      selected = { ...selected, optionsListName: this.optionsList.name };
+    
+      this.selected.emit({ option: selected, operation: Operation.REMOVE });
     }
     
     event?.stopPropagation();
