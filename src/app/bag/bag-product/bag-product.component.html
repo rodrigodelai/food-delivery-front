@@ -1,26 +1,30 @@
 <div class="text">
-    <h2>{{ title }}</h2>
-    @if (promoPrice) {
+    <h2>{{ item.product.name }}</h2>
+    @if ( item.product.promoPrice) {
         <span>Promo</span>
     }
-    <ul>
-        @for (item of optionals; track item) {
-            <li>{{ item }}</li>
+    <ul>    
+        @for (list of item.optionsLists; track list) {
+            <li>{{ agregateOptions(list) }}</li>
+        } @empty {
+            <li [ngClass]="{ two_lines: !item.notes }"> Descrição: {{ item.product.description }}</li>
+        }
+
+        @if ((item.optionsLists?.length ?? 0) == 1) {
+            <li> Observações: {{ item.notes }} </li>
         }
     </ul>
-    @if (promoPrice) {
-        <span>{{ promoPrice | currency: 'BRL'}}</span>
-    }
-    <span>{{ price | currency: 'BRL' }}</span>
+    <span>{{ item.product.promoPrice | currency: 'BRL'}}</span>
+    <span [ngClass]="{ line_through: item.product.promoPrice }">{{ item.product.price | currency: 'BRL' }}</span>
 </div>
 <div class="image">
     <img src="../../../assets/img/burguer-1.jpg" alt="Burguer image">
-    <div class="buttons">
-        <button type="button">
+    <div class="buttons" >
+        <button type="button" (click)="remove.emit(index)">
             <mat-icon aria-hidden="false" aria-label="Remove icon" fontIcon="remove_circle_outline"></mat-icon>
         </button>
-        <p>1</p>
-        <button type="button">
+        <p>{{ item.quantity }}</p>
+        <button type="button" (click)="add.emit(index)">
             <mat-icon aria-hidden="false" aria-label="Add icon" fontIcon="add_circle_outline"></mat-icon>
         </button>
     </div>

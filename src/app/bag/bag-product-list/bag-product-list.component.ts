@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BagProductComponent } from '../bag-product/bag-product.component';
 import { MatIconModule } from '@angular/material/icon';
+import { Order } from '../../model/order';
+import { OrderItem } from '../../model/order-item';
 
 @Component({
   selector: 'app-bag-product-list',
@@ -10,5 +12,11 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './bag-product-list.component.css'
 })
 export class BagProductListComponent {
+
+  @Input() order!: Order;
+  @Output() empty = new EventEmitter();
+  @Output() more = new EventEmitter();
+  @Output() add = new EventEmitter<number>();
+  @Output() remove = new EventEmitter<number>();
 
 }

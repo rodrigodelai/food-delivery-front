@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-bag-order-summary',
@@ -10,14 +10,8 @@ import { Component } from '@angular/core';
 })
 export class BagOrderSummaryComponent {
 
-  subtotal: number;
-  deliveryFee: number;
-  taxes: number;
-
-  constructor() {
-    this.subtotal = 10.99;
-    this.deliveryFee = 3;
-    this.taxes = .5;
-  }
+  @Input() subtotal!: number;
+  @Input() deliveryFee!: number;
+  @Input() taxes!: number;
 
 }

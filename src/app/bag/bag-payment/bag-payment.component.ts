@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-bag-payment',
@@ -10,4 +10,10 @@ import { Component } from '@angular/core';
 })
 export class BagPaymentComponent {
 
+  @Input() total!: number;
+  @Output() submit = new EventEmitter();
+
+  sendOrder() {
+    this.submit.emit()
+  }
 }

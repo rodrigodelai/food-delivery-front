@@ -1,0 +1,38 @@
+:host {
+    text-align: center;
+}
+
+mat-dialog-content.mat-mdc-dialog-container .mat-mdc-dialog-title+.mat-mdc-dialog-content {
+    padding-bottom: 0;
+}
+
+mat-dialog-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem
+}
+
+p {
+    margin-top: 1.25rem;
+}
+
+button {
+    display: inline-block;
+    font-size: 1em;
+    width: 5rem;
+    margin: -.5rem 0 1.2rem 0;
+    align-self: center;
+    height: 2em;
+    background: linear-gradient(135deg, #ff984f, #ff6e07);
+    border: none;
+    border-radius: .25em;
+    color: #FEFEFE;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+button:first-of-type {
+    background: linear-gradient(135deg, #90909022, #75757522);
+    color: rgba(0,0,0,0.7);
+}

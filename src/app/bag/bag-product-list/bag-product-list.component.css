@@ -6,6 +6,10 @@ ul {
     list-style: none;
 }
 
+ul:first-of-type hr:last-of-type {
+    display: none;
+}
+
 ul:last-of-type {
     display: flex;
     gap: .5em;

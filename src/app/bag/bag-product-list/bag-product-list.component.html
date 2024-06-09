@@ -1,26 +1,28 @@
 <ul>
-  <li>
-    <app-bag-product></app-bag-product>
-  </li>
-  <hr />
-  <li>
-    <app-bag-product></app-bag-product>
-  </li>
+  @for (item of order.items; track item; let index = $index) {
+    <li><app-bag-product [index]="index" [item]="item" (add)="add.emit($event)" (remove)="remove.emit($event)"></app-bag-product></li>
+    <hr>
+  }
 </ul>
-<hr />
+@if (order.subtotal) {  
+  <hr />
+}
 <ul>
+  @if (order.subtotal) {
+    <li>
+      <button type="button" (click)="empty.emit()">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Remove icon"
+          fontIcon="cancel"
+        ></mat-icon>
+        Esvaziar sacola
+      </button>
+    </li>
+  }
+  
   <li>
-    <button type="button">
-      <mat-icon
-        aria-hidden="false"
-        aria-label="Remove icon"
-        fontIcon="cancel"
-      ></mat-icon>
-      Esvaziar sacola
-    </button>
-  </li>
-  <li>
-    <button type="button">
+    <button type="button" (click)="more.emit()">
       <mat-icon
         aria-hidden="false"
         aria-label="Add icon"

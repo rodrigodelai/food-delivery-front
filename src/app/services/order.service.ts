@@ -17,11 +17,15 @@ export class OrderService {
     localStorage.clear();
   }
 
+  emptyBag() {
+    localStorage.clear();
+  }
+
   createOrderIfDoesntExist(): string {
     if (!(localStorage.getItem('order') ?? '').length) {
       const order: Order = {
         client: 'Anônimo',
-        itens: [],
+        items: [],
         subtotal: 0,
         deliveryFee: 0,
         taxes: 0
@@ -48,10 +52,12 @@ export class OrderService {
   }
 
   addItemToOrder() {
-    const order = JSON.parse(this.createOrderIfDoesntExist());
+    const order = JSON.parse(this.createOrderIfDoesntExist()) as Order;
     const item = JSON.parse(localStorage.getItem('item')??'');
 
-    order.itens.push(item);
+    console.log('order: ', order);
+    
+    order.items.push(item);
     order.subtotal += item.price;
 
     localStorage.setItem('order', JSON.stringify(order));
@@ -62,6 +68,37 @@ export class OrderService {
     const item = JSON.parse(localStorage.getItem('item')??'') as OrderItem;
     item.notes = notes;
     localStorage.setItem('item', JSON.stringify(item));
+  }
+
+  updateItem(newItem: OrderItem, index: number) {
+    const order = JSON.parse(localStorage.getItem('order')??'') as Order;
+    order.items[index] = newItem;
+    this.updateSubtotal(order)
+    localStorage.setItem('order', JSON.stringify(order)); 
+  }
+
+  deleteItem(index: number) {
+    if (index >= 0) {
+      const order = JSON.parse(localStorage.getItem('order')??'') as Order;
+      order.items.splice(index, 1);
+      this.updateSubtotal(order);
+      localStorage.setItem('order', JSON.stringify(order));
+    }
+  }
+
+  deleteItemWithoutContext({ index, service }: { index: number, service: OrderService }) {   
+    if (index >= 0) {
+      const order = JSON.parse(localStorage.getItem('order')??'') as Order;
+      order.items.splice(index, 1);
+      service.updateSubtotal(order);
+      localStorage.setItem('order', JSON.stringify(order));
+    }
+  }
+
+  private updateSubtotal(order: Order) {
+    let price = order.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    order.taxes = price * 0.02;
+    order.subtotal = price;
   }
 
   private createOptionListIfDoesntExist(optionsLists: OptionsList[], optionsListName: string): OptionsList[] {
@@ -128,6 +165,10 @@ export class OrderService {
 
   private deleteOption(list: OptionsList, optionIndex: number = list.options.length - 1) {
     list.options.splice(optionIndex, 1);
+  }
+
+  getOrder() {
+    return JSON.parse(this.createOrderIfDoesntExist());
   }
 
 }
