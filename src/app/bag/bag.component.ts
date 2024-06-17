@@ -46,7 +46,7 @@ export class BagComponent {
 
   onSubmit() {
     if (!this.order.items.length)
-      this.snackBar.open('Sua sacola está vazia.', '✖', { duration: 300000, panelClass: ['snackbar'] });
+      this.snackBar.open('Sua sacola está vazia.', '✖', { duration: 7000 });
     else
       this.dialogService.openDialog('200ms', '100ms', DialogDataOptions.SEND_ORDER, this.functionMap);
   }
@@ -60,8 +60,13 @@ export class BagComponent {
   }
 
   sendOrder() {
-    this.orderService.sendOrder();
-    this.order = this.orderService.getOrder();
+    this.orderService.sendOrder().subscribe(
+      () => {
+        localStorage.clear();
+        this.order = this.orderService.getOrder()
+      },
+      (error) => this.snackBar.open('Houve um problema na comunicação com o servidor. Tente novamente mais tarde.', '✖', { duration: 7000 }),
+    );
   }
 
   emptyBag() {

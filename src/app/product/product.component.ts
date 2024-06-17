@@ -36,7 +36,7 @@ export class ProductComponent {
 
   handleSelection(selection: { option: Option, operation: Operation }) {
     this.orderService.createItemIfDoesntExist(this.product);
-    this.orderService.addOptionToProductItem(selection.option);
+    this.orderService.addOrderOptionToOrderItem(selection.option);
     this.updateBag(selection.operation * selection.option.price);
   }
 

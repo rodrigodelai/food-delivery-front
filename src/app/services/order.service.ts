@@ -3,18 +3,22 @@ import { Order } from '../model/order';
 import { OrderItem } from '../model/order-item';
 import { Product } from '../model/product';
 import { Option } from '../model/option';
-import { OptionsList } from '../model/options-list';
+import { CrudService } from './crud.service';
+import { HttpClient } from '@angular/common/http';
+import { OrderOptionsList } from '../model/order-options-list';
+import { OrderOption } from '../model/order-option';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OrderService {
+export class OrderService extends CrudService<Order> {
 
-  constructor() { }
+  constructor(http: HttpClient) {
+    super(http, 'order');
+  }
 
   sendOrder() {
-    console.log('Order sent', JSON.parse(this.createOrderIfDoesntExist()));
-    localStorage.clear();
+    return this.create(JSON.parse(this.createOrderIfDoesntExist()));
   }
 
   emptyBag() {
@@ -65,13 +69,13 @@ export class OrderService {
   }
 
   addNotesToItem(notes: string) {
-    const item = JSON.parse(localStorage.getItem('item')??'') as OrderItem;
+    const item = JSON.parse(localStorage.getItem('item') ?? '') as OrderItem;
     item.notes = notes;
     localStorage.setItem('item', JSON.stringify(item));
   }
 
   updateItem(newItem: OrderItem, index: number) {
-    const order = JSON.parse(localStorage.getItem('order')??'') as Order;
+    const order = JSON.parse(localStorage.getItem('order') ?? '') as Order;
     order.items[index] = newItem;
     this.updateSubtotal(order)
     localStorage.setItem('order', JSON.stringify(order)); 
@@ -101,70 +105,77 @@ export class OrderService {
     order.subtotal = price;
   }
 
-  private createOptionListIfDoesntExist(optionsLists: OptionsList[], optionsListName: string): OptionsList[] {
-    if (optionsLists.find(list => list.name == optionsListName) == undefined) {
-      const newList: OptionsList = {
+  private addOrderOptionsListIfNotExists(orderOptionsLists: OrderOptionsList[], optionsListName: string): OrderOptionsList[] {
+    if (orderOptionsLists.find(list => list.name == optionsListName) == undefined) {
+      const newList: OrderOptionsList = {
         name: optionsListName,
-        options: []
+        orderOptions: []
       };
 
-      optionsLists.push(newList);
+      orderOptionsLists.push(newList);
     }
 
-    return optionsLists;
+    return orderOptionsLists;
   }
 
-  addOptionToProductItem(option: Option) {
-    const item = JSON.parse(localStorage.getItem('item')??'') as OrderItem;
-    const listName = option.optionsListName??'Opcional';
+  addOrderOptionToOrderItem(option: Option) {
+    const item = JSON.parse(localStorage.getItem('item') ?? '') as OrderItem;
+    const listName = option.optionsListName ?? 'Opcional';
 
-    item.optionsLists = this.createOptionListIfDoesntExist(item.optionsLists??[], listName);
+    item.orderOptionsLists = this.addOrderOptionsListIfNotExists(item.orderOptionsLists ?? [], listName);
 
     delete option.imageName;
     delete option.optionsListName;
 
-    const list = item.optionsLists.find(list => list.name == listName) ?? {} as OptionsList;
-    const olderOptionIndex = list.options.findIndex(opt => opt.name == option.name);
+    const list = item.orderOptionsLists.find(list => list.name == listName) ?? {} as OrderOptionsList;
+    const olderOrderOptionIndex = list.orderOptions.findIndex(orderOption => orderOption.option.name == option.name);
 
-    // Remove option and parents that are empty
+    // Remove orderOptions and parents that are empty
     if (!option.quantity) { 
-      this.deleteOption(list, olderOptionIndex);
+      this.deleteOrderOption(list, olderOrderOptionIndex);
       item.price -= option.price;
 
-      if (!list.options.length) {
-        this.deleteList(item.optionsLists, listName);
+      if (!list.orderOptions.length) {
+        this.deleteList(item.orderOptionsLists, listName);
 
-        if (!item.optionsLists.length)
-          delete item.optionsLists;
+        if (!item.orderOptionsLists.length)
+          delete item.orderOptionsLists;
       } 
     }
-    // Option already exists; Update option quantity
-    else if (olderOptionIndex != -1) {
-      this.updateItemPrice(item, list.options[olderOptionIndex], option);
-      list.options[olderOptionIndex].quantity = option.quantity;
+    // OrderOption already exists; Update orderOption quantity
+    else if (olderOrderOptionIndex != -1) {
+      this.updateItemPrice(item, list.orderOptions[olderOrderOptionIndex], option);
+      list.orderOptions[olderOrderOptionIndex].quantity = option.quantity;
     }
-    // Option does not exist; Add new option
+    // OrderOption does not exist; Add new orderOption
     else {
-      list?.options.push(option); 
+      const newOrderOption = {
+        option: option,
+        quantity: option.quantity
+      }
+
+      delete option.quantity;
+
+      list?.orderOptions.push(newOrderOption); 
       item.price += option.price;
     }
 
     localStorage.setItem('item', JSON.stringify(item));
   }
 
-  private updateItemPrice(item: OrderItem, oldOption: Option, newOption: Option) {
-    item.price -= oldOption.price * (oldOption.quantity ?? 0);
+  private updateItemPrice(item: OrderItem, oldOrderOption: OrderOption, newOption: Option) {
+    item.price -= oldOrderOption.option.price * (oldOrderOption.quantity ?? 0);
     item.price += newOption.price * (newOption.quantity ?? 0);
   }
 
-  private deleteList(optionsLists: OptionsList[], listName: string) {
-    const index = optionsLists.findIndex(list => list.name == listName);
+  private deleteList(orderOptionsLists: OrderOptionsList[], listName: string) {
+    const index = orderOptionsLists.findIndex(list => list.name == listName);
     if (index != -1) 
-      optionsLists.splice(index, 1);
+      orderOptionsLists.splice(index, 1);
   }
 
-  private deleteOption(list: OptionsList, optionIndex: number = list.options.length - 1) {
-    list.options.splice(optionIndex, 1);
+  private deleteOrderOption(list: OrderOptionsList, orderOptionIndex: number = list.orderOptions.length - 1) {
+    list.orderOptions.splice(orderOptionIndex, 1);
   }
 
   getOrder() {

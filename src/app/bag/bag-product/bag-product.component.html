@@ -4,13 +4,13 @@
         <span>Promo</span>
     }
     <ul>    
-        @for (list of item.optionsLists; track list) {
+        @for (list of item.orderOptionsLists; track list) {
             <li>{{ agregateOptions(list) }}</li>
         } @empty {
             <li [ngClass]="{ two_lines: !item.notes }"> Descrição: {{ item.product.description }}</li>
         }
 
-        @if ((item.optionsLists?.length ?? 0) == 1) {
+        @if ((item.orderOptionsLists?.length ?? 0) == 1) {
             <li> Observações: {{ item.notes }} </li>
         }
     </ul>

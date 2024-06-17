@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CurrencyPipe, NgClass } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { Product } from '../../model/product';
-import { OptionsList } from '../../model/options-list';
 import { OrderItem } from '../../model/order-item';
+import { OrderOptionsList } from '../../model/order-options-list';
 
 @Component({
   selector: 'app-bag-product',
@@ -19,12 +18,12 @@ export class BagProductComponent {
   @Output() add = new EventEmitter<number>();
   @Output() remove = new EventEmitter<number>();
 
-  agregateOptions(optionsList: OptionsList | undefined): string {
-    if (optionsList) {
-      let result = optionsList.name + ': ';
+  agregateOptions(orderOptionsList: OrderOptionsList | undefined): string {
+    if (orderOptionsList) {
+      let result = orderOptionsList.name + ': ';
 
-      optionsList.options.forEach((option) => {
-        result += option.name + ', ';
+      orderOptionsList.orderOptions.forEach((orderOption) => {
+        result += orderOption.option.name + ', ';
       })
   
       return result.slice(0, -2);
