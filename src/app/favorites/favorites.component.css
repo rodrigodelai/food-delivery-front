@@ -1,7 +1,17 @@
 :host {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: calc(100vh - 4.5rem);
+    justify-content: start;
     padding: .75rem;
+}
+
+hr {
+    margin-top: 1rem;
+}
+
+p {
+    text-align: center;
+    justify-self: center;
+    margin-top: 40vh;
+    padding-inline: 5%;
 }

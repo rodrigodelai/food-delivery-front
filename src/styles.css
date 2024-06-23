@@ -16,3 +16,16 @@ hr {
     margin: .5rem 0;
     border: none;
 }
+
+/* --- Snackbar custom styles --- */
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    max-width: calc(425px - 1.5rem) !important;
+    width: calc(100vw - 1.5rem) !important;
+    margin-bottom: .25rem !important;
+    background-color: #1c1c1c !important;
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) {
+    color: rgba(255, 255, 255, 0.87) !important;
+}

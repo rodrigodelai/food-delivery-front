@@ -1,0 +1,20 @@
+h2 {
+    padding: .5rem .75rem;
+    border-radius: .5rem;
+    text-transform: capitalize;
+    background: linear-gradient(135deg, #ff984f, #ff6e07);
+    color: white;
+    filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));
+    justify-content: center;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+ul {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    list-style: none;
+    gap: .75rem;
+    justify-content: start;
+}

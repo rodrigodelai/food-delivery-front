@@ -10,6 +10,7 @@ import { Product } from '../model/product';
 import { Option } from '../model/option';
 import { OrderService } from '../services/order.service';
 import { Operation } from '../model/operation';
+import { FavoritesService } from '../services/favorites.service';
 
 @Component({
   selector: 'app-product',
@@ -27,7 +28,8 @@ export class ProductComponent {
   constructor(private router: Router, 
               private route: ActivatedRoute,
               private location: Location,
-              private orderService: OrderService) {
+              private orderService: OrderService,
+              public favoritesService: FavoritesService) {
     this.route.data.subscribe(data => {
       this.product = data['product'];
       this.finalPrice = this.product.promoPrice ? this.product.promoPrice : this.product.price;
@@ -49,9 +51,10 @@ export class ProductComponent {
   }
 
   onHeart(likes: boolean) {
-    //TO-DO: Save product at Local Storage;
-    if (likes) console.log("Save product at Local Storage");
-    else console.log("Remove product from Local Storage");
+    if (likes)
+      this.favoritesService.addFavorite(this.product.id ?? 0);
+    else 
+      this.favoritesService.removeFavorite(this.product.id ?? 0);
   }
 
   onSubmit() {
@@ -59,9 +62,6 @@ export class ProductComponent {
     this.orderService.createItemIfDoesntExist(this.product);
     this.orderService.addNotesToItem(this.notes.text);
     this.orderService.addItemToOrder();
-
-    console.log("Order now: ", JSON.parse(this.orderService.createOrderIfDoesntExist()));
-
     this.router.navigate(['bag']);
   }
   

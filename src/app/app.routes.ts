@@ -7,10 +7,11 @@ import { ProductComponent } from './product/product.component';
 import { productResolver } from './guards/product.resolver';
 
 export const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: '/product/1' },
+    { path: '', pathMatch: 'full', redirectTo: '/home' },
     { path: 'home', component: HomeComponent },
     { path: 'favorites', component: FavoritesComponent },
     { path: 'bag', component: BagComponent },
     { path: 'account', component: AccountComponent },
-    { path: 'product/:id', component: ProductComponent, resolve: { product: productResolver } }
+    { path: 'product/:id', component: ProductComponent, resolve: { product: productResolver } },
+    { path: '**', redirectTo: '/home' }
 ];

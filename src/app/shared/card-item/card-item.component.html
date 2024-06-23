@@ -6,8 +6,8 @@
     <mat-icon (click)="onHeart($event)" aria-hidden="false" aria-label="Home icon" [fontIcon]="fontIcon" [ngClass]="{ filled: fontIcon === 'favorite' }"></mat-icon> 
 </div>
 <div class="text">
-    <h3>{{ name }}</h3>
-    <p> {{ description }}</p>
+    <h3 #title>{{ name }}</h3>
+    <p [ngClass]="{ two_lines: titleHasMultipleLines() }"> {{ description }}</p>
     <div class="price">
         @if(promoPrice) {
             <span> {{ promoPrice | currency:'BRL' }}</span>

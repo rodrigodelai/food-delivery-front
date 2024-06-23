@@ -1,4 +1,4 @@
-<app-product-header (arrow)="onArrow()" (heart)="onHeart($event)" ></app-product-header>
+<app-product-header [productId]="product.id ?? 0" [isFavorite]="favoritesService.isFavorite(product.id ?? 0)" (arrow)="onArrow()" (heart)="onHeart($event)" ></app-product-header>
 <app-product-details [product]="product"></app-product-details>
 @for (optionsList of product.optionsLists; track optionsList) {
     <app-product-options [optionsList]="optionsList" (selected)="handleSelection($event)"></app-product-options>

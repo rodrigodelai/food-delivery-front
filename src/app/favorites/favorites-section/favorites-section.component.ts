@@ -3,23 +3,30 @@ import { CardItemComponent } from '../../shared/card-item/card-item.component';
 import { Product } from '../../model/product';
 
 @Component({
-  selector: 'app-products',
+  selector: 'app-favorites-section',
   standalone: true,
   imports: [CardItemComponent],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  templateUrl: './favorites-section.component.html',
+  styleUrl: './favorites-section.component.css'
 })
-export class ProductsComponent {
+export class FavoritesSectionComponent {
 
+  @Input() name!: string;
   @Input() products!: Product[];
   @Output() card: EventEmitter<number>;
+  @Output() heart: EventEmitter<void>;
 
   constructor() {
     this.card = new EventEmitter<number>();
+    this.heart = new EventEmitter<void>();
   }
 
   onCardItem(id: number) {
     this.card.emit(id);
+  }
+
+  onHeart() {
+    this.heart.emit();
   }
 
 }

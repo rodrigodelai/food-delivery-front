@@ -2,11 +2,12 @@
   @for (item of order.items; track item; let index = $index) {
     <li><app-bag-product [index]="index" [item]="item" (add)="add.emit($event)" (remove)="remove.emit($event)"></app-bag-product></li>
     <hr>
+  } @empty {
+    <li><p>Sua sacola está vazia. Que tal adicionar alguns produtos?</p></li>
   }
+
 </ul>
-@if (order.subtotal) {  
-  <hr />
-}
+<hr>
 <ul>
   @if (order.subtotal) {
     <li>

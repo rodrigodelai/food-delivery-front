@@ -1,0 +1,9 @@
+@if (products.length) {
+    <h2>{{ name }}</h2>
+    <hr>
+    <ul>
+        @for (product of products; track product) {
+            <li><app-card-item [id]="product.id ?? 1" [name]="product.name" [description]="product.description" [price]="product.price" [promoPrice]="product.promoPrice" (click)="onCardItem(product.id ?? 1)" (heart)="onHeart()"></app-card-item></li>
+        }
+    </ul>
+}

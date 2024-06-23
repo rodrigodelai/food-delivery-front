@@ -2,7 +2,6 @@
     margin: 0 -.5rem;
     padding: 0 .5rem .5rem .5rem;
     box-sizing: border-box;
-    /* overflow-y: auto; */
     scroll-snap-type: y mandatory;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
@@ -15,7 +14,7 @@
 
 ul {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     list-style: none;
     gap: .75rem;
     justify-content: start;

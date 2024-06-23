@@ -13,16 +13,21 @@ import { OrderOption } from '../model/order-option';
 })
 export class OrderService extends CrudService<Order> {
 
+  private order: Order;
+
   constructor(http: HttpClient) {
     super(http, 'order');
+    this.order = JSON.parse(this.createOrderIfDoesntExist());
   }
 
   sendOrder() {
-    return this.create(JSON.parse(this.createOrderIfDoesntExist()));
+    return this.create(this.order);
   }
 
   emptyBag() {
-    localStorage.clear();
+    localStorage.removeItem('item');
+    localStorage.removeItem('order');
+    this.order = JSON.parse(this.createOrderIfDoesntExist());
   }
 
   createOrderIfDoesntExist(): string {
@@ -52,19 +57,17 @@ export class OrderService extends CrudService<Order> {
       localStorage.setItem('item', JSON.stringify(item));
     }
 
-    return localStorage.getItem('item')??'';
+    return localStorage.getItem('item') ?? '';
   }
 
   addItemToOrder() {
-    const order = JSON.parse(this.createOrderIfDoesntExist()) as Order;
-    const item = JSON.parse(localStorage.getItem('item')??'');
-
-    console.log('order: ', order);
+    //const order = JSON.parse(this.createOrderIfDoesntExist()) as Order;
+    const item = JSON.parse(localStorage.getItem('item') ?? '') as OrderItem;
     
-    order.items.push(item);
-    order.subtotal += item.price;
+    this.order.items.push(item);
+    this.order.subtotal += item.price;
 
-    localStorage.setItem('order', JSON.stringify(order));
+    localStorage.setItem('order', JSON.stringify(this.order));
     localStorage.removeItem('item');
   }
 
@@ -75,27 +78,30 @@ export class OrderService extends CrudService<Order> {
   }
 
   updateItem(newItem: OrderItem, index: number) {
-    const order = JSON.parse(localStorage.getItem('order') ?? '') as Order;
-    order.items[index] = newItem;
-    this.updateSubtotal(order)
-    localStorage.setItem('order', JSON.stringify(order)); 
+    // const order = JSON.parse(localStorage.getItem('order') ?? '') as Order;
+
+    this.order.items[index] = newItem;
+    this.updateSubtotal(this.order)
+    localStorage.setItem('order', JSON.stringify(this.order)); 
   }
 
   deleteItem(index: number) {
     if (index >= 0) {
-      const order = JSON.parse(localStorage.getItem('order')??'') as Order;
-      order.items.splice(index, 1);
-      this.updateSubtotal(order);
-      localStorage.setItem('order', JSON.stringify(order));
+      // const order = JSON.parse(localStorage.getItem('order')??'') as Order;
+
+      this.order.items.splice(index, 1);
+      this.updateSubtotal(this.order);
+      localStorage.setItem('order', JSON.stringify(this.order));
     }
   }
 
   deleteItemWithoutContext({ index, service }: { index: number, service: OrderService }) {   
     if (index >= 0) {
-      const order = JSON.parse(localStorage.getItem('order')??'') as Order;
-      order.items.splice(index, 1);
-      service.updateSubtotal(order);
-      localStorage.setItem('order', JSON.stringify(order));
+      // const order = JSON.parse(localStorage.getItem('order')??'') as Order;
+
+      this.order.items.splice(index, 1);
+      service.updateSubtotal(this.order);
+      localStorage.setItem('order', JSON.stringify(this.order));
     }
   }
 
@@ -179,7 +185,7 @@ export class OrderService extends CrudService<Order> {
   }
 
   getOrder() {
-    return JSON.parse(this.createOrderIfDoesntExist());
+    return this.order;
   }
 
 }

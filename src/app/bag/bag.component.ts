@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { DialogDataOptions } from '../model/dialog-data';
 import { ConfirmationDialogService } from '../services/confirmation-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EMPTY, catchError } from 'rxjs';
 
 
 @Component({
@@ -60,13 +61,16 @@ export class BagComponent {
   }
 
   sendOrder() {
-    this.orderService.sendOrder().subscribe(
-      () => {
-        localStorage.clear();
-        this.order = this.orderService.getOrder()
-      },
-      (error) => this.snackBar.open('Houve um problema na comunicação com o servidor. Tente novamente mais tarde.', '✖', { duration: 7000 }),
-    );
+    this.orderService.sendOrder()
+    .pipe(catchError(() => {
+      this.snackBar.open('Houve um problema na comunicação com o servidor. Tente novamente mais tarde.', '✖', { duration: 7000 })
+      return EMPTY;
+    }))
+    .subscribe(() => {
+      this.orderService.emptyBag();
+      this.snackBar.open('Seu pedido foi enviado com sucesso!', '✖', { duration: 7000 });
+      this.order = this.orderService.getOrder();
+    });
   }
 
   emptyBag() {
@@ -88,8 +92,6 @@ export class BagComponent {
   removeItem(index: number) {
     const item = this.order.items[index];
     item.quantity -= 1;
-
-    console.log('removeItem orderService: ', this.orderService);
 
     if (item.quantity === 0) {
       item.quantity += 1;
