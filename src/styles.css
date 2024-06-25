@@ -17,6 +17,10 @@ hr {
     border: none;
 }
 
+button {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 /* --- Snackbar custom styles --- */
 
 .mat-mdc-snack-bar-container .mdc-snackbar__surface {
