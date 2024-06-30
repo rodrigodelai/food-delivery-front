@@ -1,0 +1,41 @@
+:host {
+    position: fixed;
+    top: 0;
+    width: calc(100vw);
+    max-width: 425px;
+    background-color: #FEFEFE;
+    z-index: 100;
+    transform: translate(-.75rem, 0);
+    color: #000000F2
+}
+
+header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: .75rem .75rem 0 .75rem;
+}
+
+button {
+    border-radius: 50%;
+    border: none;
+    width: 3em;
+    height: 3em;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+h1 {
+    display: inline;
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+mat-icon {
+    transform: scale(.85);
+    translate: .15em .05em;
+}
+
+hr {
+    margin-bottom: 0;
+}

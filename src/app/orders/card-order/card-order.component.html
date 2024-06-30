@@ -1,0 +1,39 @@
+
+<div class="header">
+    <p>{{ order.createdAt | orderDate }}</p>
+    <span>Enviado</span>
+</div>
+<ul class="items">
+    @for (item of order.items; track item) {
+        <li [@toggle]="shouldShowItem($index)" [ngStyle]="getFadingStyle($index)">
+            <table [ngClass]="{ highlightHeader: seeMore }">
+                <tr (click)="onSeeMore()" [@distance]="distanceControl(item)">
+                    <th>• {{ item.quantity }}x {{ item.product.name }} 
+                        @if (item.orderOptionsLists?.length) {
+                            <mat-icon [@fade]="seeMore ? 'hide' : 'show'" aria-hidden="false" aria-label="Expand icon" fontIcon="expand_more"></mat-icon>
+                        }
+                    </th>
+                    <th>{{ (seeMore ? (item.product.promoPrice ?? item.product.price) * item.quantity : item.quantity * item.price) | currency: 'BRL' }}</th>
+                </tr>
+                @for (orderOptionsList of item.orderOptionsLists; track orderOptionsList) {
+                    <tr [@toggle]="seeMore ? 'show' : 'hide'" [@distance]="!item.notes?.length && seeMore ? 'increase' : 'decrease'">
+                        <td>◦ {{ agregateOptions(orderOptionsList) }} </td>
+                        <td>{{ agregateOptionsPrices(orderOptionsList) | currency: 'BRL' }}</td>
+                    </tr>
+                }
+                @if (item.notes?.length) {
+                    <tr [@toggle]="seeMore ? 'show' : 'hide'" [@distance]="seeMore ? 'increase' : 'decrease'">
+                        <td>◦ Observações: {{ item.notes }}</td>
+                    </tr>
+                }
+            </table>
+        </li>
+    }
+</ul>
+<div class="footer">
+    <p>Total do pedido</p><p>{{ order.subtotal + order.taxes + order.deliveryFee | currency: 'BRL' }}</p>
+</div>
+<div class="buttons">
+    <button type="button" (click)="onSeeMore()"><mat-icon fontIcon="read_more"></mat-icon>{{ seeMoreText }}</button>
+    <button type="button" (click)="onAddToBag(index)">Adicionar à sacola</button>
+</div>

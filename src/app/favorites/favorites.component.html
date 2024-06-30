@@ -1,3 +1,4 @@
+<app-page-header></app-page-header>
 @for (category of categories; track category) {
     <app-favorites-section [name]="category.name" [products]="category.products" (card)="onCardItem($event)" (heart)="onHeart()"></app-favorites-section>
     <hr>
@@ -5,5 +6,4 @@
 @empty {
     <p>Você ainda não tem favoritos. Clique no coração, no canto superior direito de seu produto favorito, para adicioná-lo a esta seção.</p>
 }
-
 <app-menu-bar [canHide]="true"></app-menu-bar>

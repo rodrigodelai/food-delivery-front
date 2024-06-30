@@ -1,5 +1,5 @@
 <div class="cover">
-    @if(promoPrice) {
+    @if (promoPrice) {
         <span>Promo</span>
     } 
     <img src="../../../assets/img/burguer-1.avif" alt="Burguer 1">
@@ -7,9 +7,9 @@
 </div>
 <div class="text">
     <h3 #title>{{ name }}</h3>
-    <p [ngClass]="{ two_lines: titleHasMultipleLines() }"> {{ description }}</p>
+    <p> {{ description }}</p>
     <div class="price">
-        @if(promoPrice) {
+        @if (promoPrice) {
             <span> {{ promoPrice | currency:'BRL' }}</span>
         }
         <span>{{ price | currency:'BRL' }}</span>

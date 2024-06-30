@@ -7,6 +7,7 @@ import { CrudService } from './crud.service';
 import { HttpClient } from '@angular/common/http';
 import { OrderOptionsList } from '../model/order-options-list';
 import { OrderOption } from '../model/order-option';
+import { Observable, forkJoin, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,20 @@ export class OrderService extends CrudService<Order> {
 
   sendOrder() {
     return this.create(this.order);
+  }
+
+  saveOrder(id?: number) {
+    if (id) {
+      const orderHistory = JSON.parse(localStorage.getItem('order_history') ?? '[]');
+      orderHistory.unshift(id);
+      localStorage.setItem('order_history', JSON.stringify(orderHistory));
+    }
+  }
+
+  getHistory() {
+    const ids = JSON.parse(localStorage.getItem('order_history') ?? '[]') as number[];
+    const history = ids.map(id => this.read(id));
+    return forkJoin(history);
   }
 
   emptyBag() {
@@ -61,14 +76,19 @@ export class OrderService extends CrudService<Order> {
   }
 
   addItemToOrder() {
-    //const order = JSON.parse(this.createOrderIfDoesntExist()) as Order;
     const item = JSON.parse(localStorage.getItem('item') ?? '') as OrderItem;
     
     this.order.items.push(item);
-    this.order.subtotal += item.price;
+    this.updateSubtotal(this.order);
 
     localStorage.setItem('order', JSON.stringify(this.order));
     localStorage.removeItem('item');
+  }
+
+  addOrderItem(orderItem: OrderItem) {
+    this.order.items.push(orderItem);
+    this.updateSubtotal(this.order);
+    localStorage.setItem('order', JSON.stringify(this.order));
   }
 
   addNotesToItem(notes: string) {

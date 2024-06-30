@@ -2,40 +2,20 @@
 <nav>
   <ul>
     <li>
-      <mat-icon
-        aria-hidden="false"
-        aria-label="Home icon"
-        fontIcon="home"
-        [routerLink]="['/home']"
-        routerLinkActive="active"
-      ></mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Home icon" fontIcon="home" routerLink="/home" routerLinkActive="active"></mat-icon>
+      <span routerLink="/home" routerLinkActive="text-active">Início</span>
     </li>
     <li>
-      <mat-icon
-        aria-hidden="false"
-        aria-label="Favorites icon"
-        fontIcon="favorite"
-        [routerLink]="['/favorites']"
-        routerLinkActive="active"
-      ></mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Favorites icon" fontIcon="favorite" routerLink="/favorites" routerLinkActive="active"></mat-icon>
+      <span routerLink="/favorites" routerLinkActive="text-active">Favoritos</span>
     </li>
     <li>
-      <mat-icon
-        aria-hidden="false"
-        aria-label="Bag icon"
-        fontIcon="shopping_bag"
-        [routerLink]="['/bag']"
-        routerLinkActive="active"
-      ></mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Orders icon" fontIcon="assignment" routerLink="/orders" routerLinkActive="active"></mat-icon>
+      <span routerLink="/orders" routerLinkActive="text-active">Pedidos</span>
     </li>
     <li>
-      <mat-icon
-        aria-hidden="false"
-        aria-label="Account icon"
-        fontIcon="account_circle"
-        [routerLink]="['/account']"
-        routerLinkActive="active"
-      ></mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Bag icon" fontIcon="shopping_bag" routerLink="/bag" routerLinkActive="text-active"></mat-icon>
+      <span routerLink="/bag" routerLinkActive="text-active">Sacola</span>
     </li>
   </ul>
 </nav>

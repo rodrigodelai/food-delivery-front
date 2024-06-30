@@ -1,3 +1,4 @@
+<app-page-header title="Sacola"></app-page-header>
 <app-bag-delivery></app-bag-delivery>
 <hr>
 <app-bag-product-list [order]="order" (empty)="onEmptyBag()" (more)="sendToHome()" (add)="addItem($event)" (remove)="removeItem($event)"></app-bag-product-list>

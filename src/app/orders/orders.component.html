@@ -1,0 +1,6 @@
+<app-page-header title="Pedidos"></app-page-header>
+@for (order of orders; track order) {
+    <app-card-order [index]="$index" [order]="order" (add)="onAddToBag($event)"></app-card-order>
+    <hr>
+}
+<app-menu-bar [canHide]="true"></app-menu-bar>

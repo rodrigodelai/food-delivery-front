@@ -6,5 +6,6 @@ export interface Order {
     items: OrderItem[],
     subtotal: number,
     deliveryFee: number,
-    taxes: number
+    taxes: number,
+    createdAt?: string
 }

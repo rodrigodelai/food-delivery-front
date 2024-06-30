@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: start;
     padding: .75rem;
+    padding-top: 4.5rem;
 }
 
 hr {

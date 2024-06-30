@@ -11,6 +11,7 @@ import { DialogDataOptions } from '../model/dialog-data';
 import { ConfirmationDialogService } from '../services/confirmation-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EMPTY, catchError } from 'rxjs';
+import { PageHeaderComponent } from '../shared/page-header/page-header.component';
 
 
 @Component({
@@ -21,7 +22,8 @@ import { EMPTY, catchError } from 'rxjs';
     BagProductListComponent,
     BagOrderSummaryComponent,
     BagPaymentComponent,
-    MenuBarComponent
+    MenuBarComponent,
+    PageHeaderComponent
   ],
   templateUrl: './bag.component.html',
   styleUrl: './bag.component.css',
@@ -66,9 +68,11 @@ export class BagComponent {
       this.snackBar.open('Houve um problema na comunicação com o servidor. Tente novamente mais tarde.', '✖', { duration: 7000 })
       return EMPTY;
     }))
-    .subscribe(() => {
-      this.orderService.emptyBag();
+    .subscribe((response) => {
       this.snackBar.open('Seu pedido foi enviado com sucesso!', '✖', { duration: 7000 });
+      this.orderService.saveOrder(response.id);
+      this.router.navigate(['/orders']);
+      this.orderService.emptyBag();
       this.order = this.orderService.getOrder();
     });
   }
