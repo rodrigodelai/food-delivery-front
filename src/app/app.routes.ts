@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { FavoritesComponent } from './favorites/favorites.component';
-import { BagComponent } from './bag/bag.component';
-import { AccountComponent } from './account/account.component';
-import { ProductComponent } from './product/product.component';
+import { HomeComponent } from './pages/home/home.component';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
+import { BagComponent } from './pages/bag/bag.component';
+import { AccountComponent } from './pages/account/account.component';
+import { ProductComponent } from './pages/product/product.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 import { productResolver } from './guards/product.resolver';
-import { OrdersComponent } from './orders/orders.component';
 
 export const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/home' },
