@@ -3,7 +3,7 @@
     <button type="button" [ngClass]="{active: pickup}" (click)="changePickup()">Retirada</button>
 </nav>
 <div class="content">
-    <div class="text">
+    <div class="text" (click)="onAddress()">
         @if (pickup) {
             <h2>Retirar em</h2>
             <span>
@@ -27,7 +27,7 @@
     </div>
     <div class="button">
         @if (!pickup) {
-            <button type="button">
+            <button (click)="onEdit()" type="button">
                 <mat-icon aria-hidden="false" aria-label="Edit icon" fontIcon="edit"></mat-icon> Editar
             </button>
         }    

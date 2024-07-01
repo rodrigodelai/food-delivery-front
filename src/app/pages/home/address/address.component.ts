@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-address',
@@ -12,8 +13,20 @@ export class AddressComponent {
 
   address: string;
 
-  constructor() {
+  constructor(private snackbar: MatSnackBar) {
     this.address = 'Maria de Oliveira Maresguia, 6'
+  }
+
+  onAddress(){
+    this.unavailable();
+  }
+
+  onNotification(){
+    this.unavailable();
+  }
+
+  private unavailable() {
+    this.snackbar.open('Recurso ainda indisponível', '✖', { duration: 7000 });
   }
 
 }

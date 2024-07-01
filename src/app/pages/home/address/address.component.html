@@ -1,4 +1,4 @@
-<div>
+<div (click)="onAddress()">
     <h2>Enviar para</h2>
     <span>
         <mat-icon aria-hidden="false" aria-label="Edit icon" fontIcon="keyboard_arrow_down"></mat-icon>
@@ -8,4 +8,4 @@
         <span>{{ address }}</span>
     </div>
 </div>
-<mat-icon aria-hidden="false" aria-label="Notifications icon" fontIcon="notifications_none"></mat-icon> 
+<mat-icon (click)="onNotification()" aria-hidden="false" aria-label="Notifications icon" fontIcon="notifications_none"></mat-icon> 

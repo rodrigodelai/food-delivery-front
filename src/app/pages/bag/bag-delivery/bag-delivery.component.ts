@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-bag-delivery',
@@ -15,7 +16,7 @@ export class BagDeliveryComponent {
   storeAddress: string;
   clientAddress: string;
 
-  constructor() {
+  constructor(private snackbar: MatSnackBar) {
     this.pickup = true;
     this.storeAddress = 'Av. das Nações Unidas, 1000';
     this.clientAddress = 'Maria de Oliveira Maresguia, 6';
@@ -23,6 +24,18 @@ export class BagDeliveryComponent {
 
   changePickup() {
     this.pickup = !this.pickup;
+  }
+
+  onAddress(){
+    this.unavailable();
+  }
+
+  onEdit(){
+    this.unavailable();
+  }
+
+  private unavailable() {
+    this.snackbar.open('Recurso ainda indisponível', '✖', { duration: 7000 });
   }
 
 }
