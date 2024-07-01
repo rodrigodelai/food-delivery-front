@@ -1,7 +1,7 @@
 <ul>
     @for (banner of banners; track banner) {
         <li>
-            <img src="/api/image/{{ banner.imageName }}" (click)="onBanner(banner.productId)">
+            <img src="{{ API_URL }}image/{{ banner.imageName }}" (click)="onBanner(banner.productId)">
         </li>
     }
 </ul>

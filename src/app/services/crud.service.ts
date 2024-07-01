@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http'
 import { take } from 'rxjs';
+import { environment } from '../../environments/environment';
  
 export class CrudService<T extends {id?: number}> {
 
   protected readonly API_URL: string;
 
   constructor(protected http: HttpClient, endpoint: string) { 
-    this.API_URL = '/api/' + endpoint;
+    this.API_URL = environment.apiUrl + endpoint;
   }
 
   list(params: { [key: string]: boolean } = {}) {
