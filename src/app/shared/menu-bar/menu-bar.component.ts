@@ -11,14 +11,18 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class MenuBarComponent {
   
-  @HostBinding('class.hide') hide: boolean;
   @Input() canHide: boolean;
+  @HostBinding('class.hide') private hide: boolean;
+  private lastTouchY: number;
+
 
   constructor() {
     this.hide = false;
     this.canHide = false;
+    this.lastTouchY = 10000;
   }
 
+  // Hide menu bar on mouse scroll
   @HostListener("window:wheel", ['$event'])
   onScroll(e: WheelEvent) {
     if (!this.canHide) 
@@ -31,4 +35,22 @@ export class MenuBarComponent {
     else if (delta < 0)
       this.hide = false;
   }
+
+  // Hide menu bar on touch scroll
+  @HostListener("window:touchmove", ['$event'])
+  onTouchScroll(e: TouchEvent) {
+    if (!this.canHide) 
+      return;
+
+    const touch = e.touches[0];
+    const delta = touch.clientY - (this.lastTouchY ?? touch.clientY);
+
+    if (delta > 0)
+      this.hide = false;
+    else if (delta < 0)
+      this.hide = true;
+
+    this.lastTouchY = touch.clientY;
+  }
+
 }
