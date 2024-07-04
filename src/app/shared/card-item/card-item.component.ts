@@ -2,6 +2,7 @@ import { CurrencyPipe, NgClass } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FavoritesService } from '../../services/favorites.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-card-item',
@@ -16,9 +17,11 @@ export class CardItemComponent {
   @Input() id: number;
   @Input() name: string;
   @Input() description: string;
+  @Input() imageName: string;
   @Input() price: number;
   @Input() promoPrice?: number;
   @Output() heart: EventEmitter<void>;
+  readonly API_URL = environment.apiUrl + "image/";
 
   @ViewChild('title') title: ElementRef | undefined;
 
@@ -27,6 +30,7 @@ export class CardItemComponent {
     this.id = 0;
     this.name = "Name";
     this.description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.";
+    this.imageName = "";
     this.price = 0;
     this.heart = new EventEmitter();
   }

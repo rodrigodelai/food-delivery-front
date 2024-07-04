@@ -1,5 +1,5 @@
 <ul>
     @for (product of products; track product) {
-        <li><app-card-item [id]="product.id ?? 1" [name]="product.name" [description]="product.description" [price]="product.price" [promoPrice]="product.promoPrice" (click)="onCardItem(product.id ?? 1)"></app-card-item></li>
+        <li><app-card-item title="Ver {{ product.name }}" [id]="product.id ?? 1" [name]="product.name" [description]="product.description" [imageName]="product.imageName" [price]="product.price" [promoPrice]="product.promoPrice" (click)="onCardItem(product.id ?? 1)"></app-card-item></li>
     }
 </ul>

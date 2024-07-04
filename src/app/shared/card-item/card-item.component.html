@@ -2,7 +2,7 @@
     @if (promoPrice) {
         <span>Promo</span>
     } 
-    <img src="../../../assets/img/burguer-1.avif" alt="Burguer 1">
+    <img src="{{ imageName ? API_URL + imageName : '../../../assets/img/burguer-1.avif' }}" alt="Burguer image">
     <mat-icon (click)="onHeart($event)" aria-hidden="false" aria-label="Home icon" [fontIcon]="fontIcon" [ngClass]="{ filled: fontIcon === 'favorite' }"></mat-icon> 
 </div>
 <div class="text">
