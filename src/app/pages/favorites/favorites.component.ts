@@ -23,6 +23,7 @@ export class FavoritesComponent {
     private favoritesService: FavoritesService
   ) {
     this.categoryService.list().subscribe((categories) => {
+      categories.unshift(categoryService.getPromoCategory(categories));
       this.categories = this.filterCategories(categories);
     });
   }

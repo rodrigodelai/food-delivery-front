@@ -43,6 +43,7 @@ export class HomeComponent {
     });
 
     this.categoryService.list().subscribe((categories) => {
+      categories.unshift(categoryService.getPromoCategory(categories));
       this.categories = categories;
       this.products = categories[0].products;
     });
