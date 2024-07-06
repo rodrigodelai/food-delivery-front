@@ -1,5 +1,14 @@
-<ul>
-    @for (category of categories; track category; let index = $index) {
-        <li (click)="onCategory(index, $event)" [ngClass]="{ active: index == selectedCategory }">{{ category.name }}</li>
-    }
-</ul>
+@if (categories) {
+    <ul>
+        @for (category of categories; track category; let index = $index) {
+            <li (click)="onCategory(index, $event)" [ngClass]="{ active: index == selectedCategory }">{{ category.name }}</li>
+        }
+    </ul>    
+}
+@else {
+    <ul>
+        <li class="placeholder"></li>
+        <li class="placeholder"></li>
+        <li class="placeholder"></li>
+    </ul>
+}

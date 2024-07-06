@@ -35,6 +35,10 @@ li:first-of-type mat-icon {
     transform: scale(1.5) translate(0, .05rem);
 }
 
+li:last-of-type mat-icon {
+    transform: scale(1.43) translate(0, -.05rem);
+}
+
 li {
     display: flex;
     flex-direction: column;

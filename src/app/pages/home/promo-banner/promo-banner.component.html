@@ -1,7 +1,13 @@
-<ul>
-    @for (banner of banners; track banner) {
-        <li>
-            <img src="{{ API_URL }}image/{{ banner.imageName }}" (click)="onBanner(banner.productId)">
-        </li>
-    }
-</ul>
+@if (banners) {
+    <ul>
+        @for (banner of banners; track banner) {
+            <li><img src="{{ API_URL }}image/{{ banner.imageName }}" (click)="onBanner(banner.productId)"></li>
+        }
+    </ul>
+}
+@else { 
+    <ul>
+        <li class="placeholder"></li>
+        <li class="placeholder"></li>
+    </ul>
+}

@@ -1,72 +1,74 @@
 import { CurrencyPipe, NgClass } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FavoritesService } from '../../services/favorites.service';
 import { environment } from '../../../environments/environment';
+import { OrderService } from '../../services/order.service';
+import { Product } from '../../model/product';
+import { MenuBarComponent } from '../menu-bar/menu-bar.component';
 
 @Component({
   selector: 'app-card-item',
   standalone: true,
   imports: [MatIconModule, NgClass, CurrencyPipe, NgClass],
   templateUrl: './card-item.component.html',
-  styleUrl: './card-item.component.css'
+  styleUrl: './card-item.component.css',
 })
 export class CardItemComponent {
 
   fontIcon: string;
-  @Input() id: number;
-  @Input() name: string;
-  @Input() description: string;
-  @Input() imageName: string;
-  @Input() price: number;
-  @Input() promoPrice?: number;
-  @Output() heart: EventEmitter<void>;
-  readonly API_URL = environment.apiUrl + "image/";
+  @Input() product: Product;
+  @Output() heart: EventEmitter<number>
+  @Output() addToBag: EventEmitter<number>
+  readonly API_URL = environment.apiUrl + 'image/';
 
-  @ViewChild('title') title: ElementRef | undefined;
-
-  constructor(private favoritesService: FavoritesService, private changeDetector: ChangeDetectorRef) {
-    this.fontIcon = "favorite_outline";
-    this.id = 0;
-    this.name = "Name";
-    this.description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.";
-    this.imageName = "";
-    this.price = 0;
-    this.heart = new EventEmitter();
+  constructor(
+    private favoritesService: FavoritesService,
+    private orderService: OrderService
+  ) {
+    this.fontIcon = 'favorite_outline';
+    this.product = {
+      id: 0,
+      name: 'Name',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
+      imageName: '',
+      price: 0,
+    };
+    this.heart = new EventEmitter<number>();
+    this.addToBag = new EventEmitter<number>();
   }
 
   ngOnInit() {
-    this.fontIcon = this.favoritesService.isFavorite(this.id) ? "favorite" : "favorite_outline";
-  }
-
-  ngAfterViewInit() {
-    this.changeDetector.detectChanges(); // Forces the change detection after the view is initialized; needed to avoid error at ngClass directive because it depends of the element height
+    this.fontIcon = this.favoritesService.isFavorite(this.product.id ?? 0)
+      ? 'favorite'
+      : 'favorite_outline';
   }
 
   onHeart(event: Event) {
     event.stopPropagation();
-    
-    if (this.fontIcon === "favorite_outline") {
-      this.fontIcon = "favorite";
-      this.favoritesService.addFavorite(this.id);
+
+    if (this.fontIcon === 'favorite_outline') {
+      this.fontIcon = 'favorite';
+      this.favoritesService.addFavorite(this.product.id ?? 0);
     } 
     else {
-      this.fontIcon = "favorite_outline";
-      this.favoritesService.removeFavorite(this.id);
+      this.fontIcon = 'favorite_outline';
+      this.favoritesService.removeFavorite(this.product.id ?? 0);
     }
 
-    this.heart.emit();
+    this.heart.emit(this.product.id ?? 0);
   }
 
-  titleHasMultipleLines() {
-    const element = this.title?.nativeElement as HTMLElement;
+  onAddToBag(event: Event) {
+    event.stopPropagation();
 
-    if (!element)
-      return false;
+    this.orderService.createOrderIfDoesntExist();
+    this.orderService.createItemIfDoesntExist(this.product);
+    this.orderService.addItemToOrder();
 
-    const lineHeight = parseFloat(window.getComputedStyle(element).fontSize) * 1.2; // 1.2 is the standard line height
-    const elementHeight = element.offsetHeight;
+    MenuBarComponent.badgeCounter += 1;
 
-    return elementHeight > lineHeight;
+    this.addToBag.emit(this.product.id ?? 0);
   }
 }

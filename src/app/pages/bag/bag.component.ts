@@ -72,14 +72,14 @@ export class BagComponent {
       this.snackBar.open('Seu pedido foi enviado com sucesso!', '✖', { duration: 7000 });
       this.orderService.saveOrder(response.id);
       this.router.navigate(['/orders']);
-      this.orderService.emptyBag();
-      this.order = this.orderService.getOrder();
+      this.emptyBag();
     });
   }
 
   emptyBag() {
     this.orderService.emptyBag();
     this.order = this.orderService.getOrder();
+    MenuBarComponent.badgeCounter = 0;
   }
 
   sendToHome() {
@@ -101,8 +101,11 @@ export class BagComponent {
       item.quantity += 1;
       const dialogRef = this.dialogService.openDialog('200ms', '100ms', DialogDataOptions.DELETE_ITEM, this.functionMap, { index: index, service: this.orderService });
       
-      dialogRef.afterClosed().subscribe(() => {
-        this.order = this.orderService.getOrder();
+      dialogRef.afterClosed().subscribe((confirm) => {
+        if (confirm) {
+          this.order = this.orderService.getOrder();
+          MenuBarComponent.badgeCounter -= 1;
+        }
       })
     }
     else 

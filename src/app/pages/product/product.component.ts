@@ -58,6 +58,7 @@ export class ProductComponent {
   }
 
   onSubmit() {
+    MenuBarComponent.badgeCounter += 1;
     this.orderService.createOrderIfDoesntExist();
     this.orderService.createItemIfDoesntExist(this.product);
     this.orderService.addNotesToItem(this.notes.text);

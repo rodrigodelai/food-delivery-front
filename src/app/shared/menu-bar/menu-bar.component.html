@@ -14,7 +14,7 @@
       <span routerLink="/orders" routerLinkActive="text-active">Pedidos</span>
     </li>
     <li>
-      <mat-icon aria-hidden="false" aria-label="Bag icon" fontIcon="shopping_bag" routerLink="/bag" routerLinkActive="text-active"></mat-icon>
+      <mat-icon [matBadge]="badgeCounter()" [matBadgeHidden]="badgeCounter() == 0" [@pump]="pump() ? 'increase' : 'decrease'" aria-hidden="false" aria-label="Bag icon" fontIcon="shopping_bag" routerLink="/bag" routerLinkActive="text-active"></mat-icon>
       <span routerLink="/bag" routerLinkActive="text-active">Sacola</span>
     </li>
   </ul>

@@ -5,11 +5,12 @@ import { Order } from '../../model/order';
 import { OrderService } from '../../services/order.service';
 import { CardOrderComponent } from './card-order/card-order.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [MenuBarComponent, PageHeaderComponent, CardOrderComponent],
+  imports: [MenuBarComponent, PageHeaderComponent, CardOrderComponent, MatProgressSpinnerModule],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
@@ -26,7 +27,8 @@ export class OrdersComponent {
       delete item.id;
       this.orderService.addOrderItem(item);
     })
-    this.snackBar.open('Itens adicionados à sacola', '✖', { duration: 7000 });
+    MenuBarComponent.badgeCounter += this.orders[index].items.length;
+    // this.snackBar.open('Itens adicionados à sacola', '✖', { duration: 7000 });
   }
 
 }

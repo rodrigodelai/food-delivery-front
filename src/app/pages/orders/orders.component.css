@@ -5,3 +5,10 @@
     padding: .75rem;
     padding-top: 4.5rem;
 }
+
+.spinner {
+    height: calc(100vh - 9rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

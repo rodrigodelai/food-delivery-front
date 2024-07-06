@@ -1,3 +1,5 @@
+/* --- General styles --- */
+
 * {
     margin: 0;
     padding: 0;
@@ -23,13 +25,69 @@ button {
 
 /* --- Snackbar custom styles --- */
 
-.mat-mdc-snack-bar-container .mdc-snackbar__surface {
-    max-width: calc(425px - 1.5rem) !important;
-    width: calc(100vw - 1.5rem) !important;
-    margin-bottom: .25rem !important;
-    background-color: #1c1c1c !important;
+.cdk-overlay-container .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    max-width: calc(425px - 1.5rem);
+    width: calc(100vw - 1.5rem) ;
+    margin-bottom: .25rem;
+    background-color: #1c1c1c;
 }
 
 .mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) {
     color: rgba(255, 255, 255, 0.87) !important;
+}
+
+ /* --- Badge custom styles --- */
+
+mat-icon .mat-badge-content {
+    background: #ff6e07;
+    transform: scale(.4) translate(0, .25rem);
+    color: white;
+    font-weight: 400;
+}
+
+mat-icon .mat-badge-content.mat-badge-active {
+    transform: scale(.4) translate(0, .25rem);
+    font-size: 1rem;
+}
+
+/* --- Spinner custom styles --- */
+
+.spinner .mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle, .spinner .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: #ff6e07;
+}
+
+/* --- Shimmer effect ---  */
+
+.placeholder {
+    display: inline-block;
+    height: 100%;
+    aspect-ratio: 7/4;
+    border-radius: .4rem;
+    position: relative;
+    overflow: hidden;
+    background-color: #EEEEEE;
+}
+  
+.placeholder::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.4) 20%,
+        rgba(255, 255, 255, 0.6) 60%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 3s infinite;
+    content: '';
+}
+  
+@keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
 }

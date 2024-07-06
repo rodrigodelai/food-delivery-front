@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Category } from '../../../model/category';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, MatProgressSpinnerModule],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css'
 })

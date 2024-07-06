@@ -1,11 +1,14 @@
 import { Component, HostBinding, HostListener, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { pumpAnimation } from '../../animations/pump';
 
 @Component({
   selector: 'app-menu-bar',
   standalone: true,
-  imports: [MatIconModule, RouterLink, RouterLinkActive],
+  imports: [MatIconModule, RouterLink, RouterLinkActive, MatBadgeModule],
+  animations: [pumpAnimation],
   templateUrl: './menu-bar.component.html',
   styleUrl: './menu-bar.component.css'
 })
@@ -14,12 +17,40 @@ export class MenuBarComponent {
   @Input() canHide: boolean;
   @HostBinding('class.hide') private hide: boolean;
   private lastTouchY: number;
-
+  private static _pump: boolean = false;
+  private static _badgeCounter: number = 0;
 
   constructor() {
-    this.hide = false;
     this.canHide = false;
+    this.hide = false;
     this.lastTouchY = 10000;
+  }
+
+  static get badgeCounter() {
+    return MenuBarComponent._badgeCounter;
+  }
+
+  static set badgeCounter(value: number) {  
+    MenuBarComponent._badgeCounter = value;
+    this.triggerPump();
+  }
+
+  private static triggerPump() {
+    this._pump = true;
+
+    console.log(this._pump);
+
+    setTimeout(() => {
+      this._pump = false;
+    }, 200);
+  }
+
+  badgeCounter() {
+    return MenuBarComponent._badgeCounter;
+  }
+
+  pump() {
+    return MenuBarComponent._pump;
   }
 
   // Hide menu bar on mouse scroll

@@ -8,7 +8,8 @@
     font-size: min(14vw/4, 1rem);
     height: 100%;
     width: 100%;
-    hyphens: auto
+    hyphens: auto;
+    transition: all .1s ease-in-out;
 }
 
 .cover {
@@ -37,6 +38,11 @@
     filter: drop-shadow(0 0 0.5em #72727255);
     background: linear-gradient(135deg, #edecec, #b8b7b7) text;
     -webkit-text-fill-color: transparent;
+    transition: all .1s ease-in-out;
+}
+
+.cover mat-icon:active {
+    transform: scale(.94);
 }
 
 .cover mat-icon.filled {
@@ -78,6 +84,7 @@ p {
 
 .price {
     display: flex;
+    justify-content: space-between;
     filter: drop-shadow(0 0 0.2em rgb(255, 255, 255));
 }
 
@@ -97,7 +104,21 @@ span {
     margin-right: .5em;
 }
 
-.two_lines {
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: .7em;
+    translate: 0 -.15em;
+    height: 1.2em;
+    transition: all .1s ease-in-out !important;
+}
+
+button:active {
+    transform: scale(.94);
+}
+
+button mat-icon {
+    color: #FF8506;
+    font-size: 2em;
 }

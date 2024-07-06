@@ -12,7 +12,13 @@ hr {
 
 p {
     text-align: center;
-    justify-self: center;
-    margin-top: 40vh;
+    margin-top: 35vh;
     padding-inline: 5%;
+}
+
+.spinner {
+    height: calc(100vh - 9rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

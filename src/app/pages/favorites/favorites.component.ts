@@ -6,11 +6,12 @@ import { Category } from '../../model/category';
 import { CategoryService } from '../../services/category.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [MenuBarComponent, FavoritesSectionComponent, PageHeaderComponent],
+  imports: [MenuBarComponent, FavoritesSectionComponent, PageHeaderComponent, MatProgressSpinnerModule],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.css',
 })
