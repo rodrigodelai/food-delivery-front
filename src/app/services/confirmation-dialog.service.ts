@@ -17,6 +17,15 @@ export class ConfirmationDialogService {
     return `Function name "${functionName}" was not present in the function map you passed.`
   }
 
+  openSimpleDialog(enterAnimationDuration: string, exitAnimationDuration: string, data: {confirmMsg: string, message: string}) {
+    return this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: 'min(425px - 1.5rem, 100vw - 1.5rem)',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: data
+    });
+  }
+
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, data: DialogData, map: Map<string, Function>, parameters?: any) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       maxWidth: 'min(425px, 100vw)',
@@ -34,7 +43,5 @@ export class ConfirmationDialogService {
 
     return dialogRef;
   }
-
-  
 
 }

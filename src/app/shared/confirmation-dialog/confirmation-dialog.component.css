@@ -36,3 +36,7 @@ button:first-of-type {
     background: linear-gradient(135deg, #90909022, #75757522);
     color: rgba(0,0,0,0.7);
 }
+
+.hidden {
+    display: none;
+}

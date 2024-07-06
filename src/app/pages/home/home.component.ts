@@ -11,6 +11,8 @@ import { Product } from '../../model/product';
 import { Banner } from '../../model/banner';
 import { BannerService } from '../../services/banner.service';
 import { CategoryService } from '../../services/category.service';
+import { catchError, of } from 'rxjs';
+import { ConfirmationDialogService } from '../../services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +30,6 @@ import { CategoryService } from '../../services/category.service';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-
   banners!: Banner[];
   categories!: Category[];
   products!: Product[];
@@ -36,18 +37,32 @@ export class HomeComponent {
   constructor(
     private bannerService: BannerService,
     private categoryService: CategoryService,
-    private router: Router
+    private router: Router,
+    private dialogService: ConfirmationDialogService
   ) {
-    this.bannerService.list().subscribe((banners) => {
-      this.banners = banners;
-    });
+    this.bannerService
+      .list()
+      .pipe(
+        catchError(() => {
+          this.dialogService.openSimpleDialog('200ms', '100ms', {
+            message: 'Houve um problema na comunicação com o servidor. Tente novamente mais tarde. Se o problema persistir, contate o suporte.',
+            confirmMsg: 'Ok',
+          });
+          return of([] as Banner[]);
+        })
+      )
+      .subscribe((banners) => {
+        this.banners = banners;
+      });
 
-    this.categoryService.list().subscribe((categories) => {
-      categories.unshift(categoryService.getPromoCategory(categories));
-      this.categories = categories;
-      this.products = categories[0].products;
-    });
-
+    this.categoryService
+      .list()
+      .pipe(catchError(() => of([] as Category[])))
+      .subscribe((categories) => {
+        categories.unshift(categoryService.getPromoCategory(categories));
+        this.categories = categories;
+        this.products = categories[0].products;
+      });
   }
 
   changeSelectedCategory(index: number) {
@@ -57,5 +72,4 @@ export class HomeComponent {
   toProduct(id: number) {
     this.router.navigate(['/product', id]);
   }
-
 }

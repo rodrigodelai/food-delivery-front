@@ -7,11 +7,18 @@ import { CategoryService } from '../../services/category.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { catchError, of } from 'rxjs';
+import { ConfirmationDialogService } from '../../services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [MenuBarComponent, FavoritesSectionComponent, PageHeaderComponent, MatProgressSpinnerModule],
+  imports: [
+    MenuBarComponent,
+    FavoritesSectionComponent,
+    PageHeaderComponent,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.css',
 })
@@ -21,12 +28,21 @@ export class FavoritesComponent {
   constructor(
     private router: Router,
     private categoryService: CategoryService,
-    private favoritesService: FavoritesService
+    private favoritesService: FavoritesService,
+    private dialogService: ConfirmationDialogService
   ) {
-    this.categoryService.list().subscribe((categories) => {
-      categories.unshift(categoryService.getPromoCategory(categories));
-      this.categories = this.filterCategories(categories);
-    });
+    this.categoryService
+      .list()
+      .pipe(
+        catchError(() => {
+          this.dialogService.openSimpleDialog('200ms', '100ms', { message: 'Houve um problema na comunicação com o servidor. Tente novamente mais tarde. Se o problema persistir, contate o suporte.', confirmMsg: 'Ok' });
+          return of([] as Category[]);
+        })
+      )
+      .subscribe((categories) => {
+        categories.unshift(categoryService.getPromoCategory(categories));
+        this.categories = this.filterCategories(categories);
+      });
   }
 
   onCardItem(id: number) {
