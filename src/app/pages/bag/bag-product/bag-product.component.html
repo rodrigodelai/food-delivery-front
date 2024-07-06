@@ -18,7 +18,7 @@
     <span [ngClass]="{ line_through: item.product.promoPrice }">{{ item.product.price | currency: 'BRL' }}</span>
 </div>
 <div class="image">
-    <img src="../../../assets/img/burguer-1.jpg" alt="Burguer image">
+    <img src="{{ API_URL + item.product.imageName }}" alt="Burguer image">
     <div class="buttons" >
         <button type="button" (click)="remove.emit(index)">
             <mat-icon aria-hidden="false" aria-label="Remove icon" fontIcon="remove_circle_outline"></mat-icon>

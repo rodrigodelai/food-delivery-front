@@ -3,6 +3,7 @@ import { CurrencyPipe, NgClass } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { OrderItem } from '../../../model/order-item';
 import { OrderOptionsList } from '../../../model/order-options-list';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-bag-product',
@@ -17,6 +18,8 @@ export class BagProductComponent {
   @Input() index!: number;
   @Output() add = new EventEmitter<number>();
   @Output() remove = new EventEmitter<number>();
+
+  readonly API_URL = environment.apiUrl + 'image/';
 
   agregateOptions(orderOptionsList: OrderOptionsList | undefined): string {
     if (orderOptionsList) {
