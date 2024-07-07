@@ -4,7 +4,6 @@ import { PageHeaderComponent } from '../../shared/page-header/page-header.compon
 import { Order } from '../../model/order';
 import { OrderService } from '../../services/order.service';
 import { CardOrderComponent } from './card-order/card-order.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
@@ -18,7 +17,7 @@ export class OrdersComponent {
 
   orders!: Order[];
 
-  constructor(private orderService: OrderService, private snackBar: MatSnackBar) {
+  constructor(private orderService: OrderService) {
     this.orderService.getHistory().subscribe(history => this.orders = history);
   }
 
@@ -28,7 +27,6 @@ export class OrdersComponent {
       this.orderService.addOrderItem(item);
     })
     MenuBarComponent.badgeCounter += this.orders[index].items.length;
-    // this.snackBar.open('Itens adicionados à sacola', '✖', { duration: 7000 });
   }
 
 }

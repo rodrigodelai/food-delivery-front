@@ -7,7 +7,7 @@ import { CrudService } from './crud.service';
 import { HttpClient } from '@angular/common/http';
 import { OrderOptionsList } from '../model/order-options-list';
 import { OrderOption } from '../model/order-option';
-import { catchError, forkJoin, map, of, take } from 'rxjs';
+import { catchError, forkJoin, map, of, take, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +35,12 @@ export class OrderService extends CrudService<Order> {
 
   getHistory() {
     const ids = JSON.parse(localStorage.getItem('order_history') ?? '[]') as number[];
+    
+    if (!ids.length) 
+      return of([] as Order[]);
+
     const history = ids.map(id => this.read(id).pipe(catchError(() => of({} as Order))), take(1));
-    return forkJoin(history).pipe(map((orders) => orders.filter((order) => Object.keys(order).length > 0)));
+    return forkJoin(history).pipe(map(orders => orders.filter(order => Object.keys(order).length > 0)));
   }
 
   emptyBag() {
