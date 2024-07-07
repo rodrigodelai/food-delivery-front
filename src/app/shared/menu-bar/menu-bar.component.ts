@@ -3,6 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { pumpAnimation } from '../../animations/pump';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-menu-bar',
@@ -17,13 +18,14 @@ export class MenuBarComponent {
   @Input() canHide: boolean;
   @HostBinding('class.hide') private hide: boolean;
   private lastTouchY: number;
+  private static _badgeCounter: number;
   private static _pump: boolean = false;
-  private static _badgeCounter: number = 0;
 
-  constructor() {
+  constructor(orderService: OrderService) {
     this.canHide = false;
     this.hide = false;
     this.lastTouchY = 10000;
+    MenuBarComponent._badgeCounter = orderService.getOrder().items.length ?? 0;
   }
 
   static get badgeCounter() {
