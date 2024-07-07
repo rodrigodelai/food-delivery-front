@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Option } from '../../../model/option';
 import { OptionsList } from '../../../model/options-list';
 import { Operation } from '../../../model/operation';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-product-options',
@@ -17,6 +18,8 @@ import { Operation } from '../../../model/operation';
 export class ProductOptionsComponent {
   @Input() optionsList!: OptionsList;
   @Output() selected: EventEmitter<{ option: Option, operation: Operation } >
+
+  readonly API_URL = environment.apiUrl + 'image/'
 
   constructor() {
     this.selected = new EventEmitter();

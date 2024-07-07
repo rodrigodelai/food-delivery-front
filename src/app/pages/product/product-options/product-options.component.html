@@ -11,7 +11,7 @@
       @for (option of optionsList.options; track option) {
         <mat-list-item role="listitem">
           <div class="option-item" (click)="onAdd(option)">
-            <img src="../../../assets/img/burguer-1.avif" alt="Adicional">
+            <img src="{{ API_URL + option.imageName }}" alt="Adicional">
             <div class="text">
               <h3>{{ option.name }}</h3>
               <p>{{ option.price | currency:'BRL' }}</p>
