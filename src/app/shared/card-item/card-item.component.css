@@ -65,8 +65,8 @@ h3 {
     margin-bottom: 0.1em;
     font-size: 1.2em;
     margin-bottom: .25em;
-    white-space: nowrap;        /* Impede que o texto quebre em várias linhas */
-    overflow: hidden;           /* Esconde qualquer conteúdo que transborda */
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
@@ -109,9 +109,9 @@ button {
     border: none;
     cursor: pointer;
     font-size: .7em;
-    translate: 0 -.15em;
-    height: 1.2em;
-    transition: all .1s ease-in-out !important;
+    translate: 0 -.35em;
+    transition: all .1s ease-in-out;
+    margin-bottom: -1em;
 }
 
 button:active {
@@ -119,6 +119,7 @@ button:active {
 }
 
 button mat-icon {
+    display: block;
     color: #FF8506;
     font-size: 2em;
 }

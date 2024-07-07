@@ -29,6 +29,7 @@ mat-icon {
     background: linear-gradient(135deg, #909090, #757575) text;
     cursor: pointer;
     color: transparent;
+    overflow: visible;
 }
 
 li:first-of-type mat-icon {

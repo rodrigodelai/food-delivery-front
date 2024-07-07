@@ -6,15 +6,13 @@
 
 ul {
     list-style: none;
-    display: flex;
-    flex-direction: row;
+    white-space: nowrap;
     height: 100%;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
     scrollbar-width: none;
-    gap: .5rem
 }
 
 ::-webkit-scrollbar {
@@ -23,13 +21,21 @@ ul {
 
 li {
     scroll-snap-align: center;
+    display: inline-block;
     cursor: pointer;
+    overflow: hidden;
+    height: 100%;
+    border-radius: .4rem;
+    margin-right: .5rem;
+}
+
+li:last-of-type {
+    margin-right: 0;
 }
 
 img {
     display: block;
     height: 100%;
-    border-radius: .4rem;
 }
 
 .placeholder {
