@@ -8,8 +8,8 @@ import { CrudService } from './crud.service';
 })
 export class BannerService extends CrudService<Banner> {
 
-  constructor(http: HttpClient) {
-    super(http, 'banner');
+  constructor() {
+    super('banner');
   }
 
 }

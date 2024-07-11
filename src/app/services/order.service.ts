@@ -4,10 +4,9 @@ import { OrderItem } from '../model/order-item';
 import { Product } from '../model/product';
 import { Option } from '../model/option';
 import { CrudService } from './crud.service';
-import { HttpClient } from '@angular/common/http';
 import { OrderOptionsList } from '../model/order-options-list';
 import { OrderOption } from '../model/order-option';
-import { catchError, forkJoin, map, of, take, tap } from 'rxjs';
+import { catchError, forkJoin, map, of, take} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +15,8 @@ export class OrderService extends CrudService<Order> {
 
   private order: Order;
 
-  constructor(http: HttpClient) {
-    super(http, 'order');
+  constructor() {
+    super('order');
     this.order = JSON.parse(this.createOrderIfDoesntExist());
   }
 

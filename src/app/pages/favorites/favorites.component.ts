@@ -35,12 +35,16 @@ export class FavoritesComponent {
       .list()
       .pipe(
         catchError(() => {
-          this.dialogService.openSimpleDialog('200ms', '100ms', { message: 'Houve um problema na comunicação com o servidor. Tente novamente mais tarde. Se o problema persistir, contate o suporte.', confirmMsg: 'Ok' });
+          this.dialogService.openSimpleDialog('200ms', '100ms', {
+            message:
+              'Houve um problema na comunicação com o servidor. Tente novamente mais tarde. Se o problema persistir, contate o suporte.',
+            confirmMsg: 'Ok',
+          });
           return of([] as Category[]);
         })
       )
       .subscribe((categories) => {
-        categories.unshift(categoryService.getPromoCategory(categories));
+        categoryService.addPromoCategory(categories);
         this.categories = this.filterCategories(categories);
       });
   }
@@ -56,12 +60,17 @@ export class FavoritesComponent {
   private filterCategories(categories: Category[]) {
     const favoritesIds = this.favoritesService.getFavoritesIds();
 
-    categories.forEach((category) => {
+    const favorites = categories.map((category) => ({
+      ...category,
+      products: [...category.products],
+    }));
+
+    favorites.forEach((category) => {
       category.products = category.products.filter((product) =>
         favoritesIds.includes(product.id ?? 0)
       );
     });
 
-    return categories.filter((category) => category.products.length);
+    return favorites.filter((category) => category.products.length);
   }
 }

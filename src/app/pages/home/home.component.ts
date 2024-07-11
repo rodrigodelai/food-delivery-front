@@ -45,7 +45,8 @@ export class HomeComponent {
       .pipe(
         catchError(() => {
           this.dialogService.openSimpleDialog('200ms', '100ms', {
-            message: 'Houve um problema na comunicação com o servidor. Tente novamente mais tarde. Se o problema persistir, contate o suporte.',
+            message:
+              'Houve um problema na comunicação com o servidor. Tente novamente mais tarde. Se o problema persistir, contate o suporte.',
             confirmMsg: 'Ok',
           });
           return of([] as Banner[]);
@@ -59,7 +60,7 @@ export class HomeComponent {
       .list()
       .pipe(catchError(() => of([] as Category[])))
       .subscribe((categories) => {
-        categories.unshift(categoryService.getPromoCategory(categories));
+        categoryService.addPromoCategory(categories);
         this.categories = categories;
         this.products = categories[0].products;
       });
