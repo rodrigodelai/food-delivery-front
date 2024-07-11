@@ -10,9 +10,9 @@ ul {
     height: 100%;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
     scrollbar-width: none;
+    line-height: .7;
 }
 
 ::-webkit-scrollbar {
