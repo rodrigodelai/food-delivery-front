@@ -4,5 +4,5 @@
 <hr>
 <app-categories [categories]="categories" (selected)="changeSelectedCategory($event)"></app-categories>
 <hr>
-<app-products [products]="products" (card)="toProduct($event)"></app-products>
+<app-products [products]="products" (card)="toProduct($event)" (addToBag)="incrementBadgeCounter()" ></app-products>
 <app-menu-bar [canHide]="true" ></app-menu-bar>

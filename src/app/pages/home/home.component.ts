@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AddressComponent } from './address/address.component';
 import { MenuBarComponent } from '../../shared/menu-bar/menu-bar.component';
@@ -30,9 +30,12 @@ import { ConfirmationDialogService } from '../../services/confirmation-dialog.se
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
+
   banners!: Banner[];
   categories!: Category[];
   products!: Product[];
+
+  @ViewChild(MenuBarComponent) menuBar!: MenuBarComponent;
 
   constructor(
     private bannerService: BannerService,
@@ -72,5 +75,9 @@ export class HomeComponent {
 
   toProduct(id: number) {
     this.router.navigate(['/product', id]);
+  }
+
+  incrementBadgeCounter() {
+    this.menuBar.incrementBadgeCounter();
   }
 }

@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { OrderService } from '../../services/order.service';
 import { Product } from '../../model/product';
 import { MenuBarComponent } from '../menu-bar/menu-bar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-card-item',
@@ -24,7 +25,8 @@ export class CardItemComponent {
 
   constructor(
     private favoritesService: FavoritesService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private snackbar: MatSnackBar
   ) {
     this.fontIcon = 'favorite_outline';
     this.product = {
@@ -66,8 +68,6 @@ export class CardItemComponent {
     this.orderService.createOrderIfDoesntExist();
     this.orderService.createItemIfDoesntExist(this.product);
     this.orderService.addItemToOrder();
-
-    MenuBarComponent.badgeCounter += 1;
 
     this.addToBag.emit(this.product.id ?? 0);
   }

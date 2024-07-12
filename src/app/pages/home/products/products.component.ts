@@ -13,13 +13,19 @@ export class ProductsComponent {
 
   @Input() products!: Product[];
   @Output() card: EventEmitter<number>;
+  @Output() addToBag: EventEmitter<number>;
 
   constructor() {
     this.card = new EventEmitter<number>();
+    this.addToBag = new EventEmitter<number>();
   }
 
   onCardItem(id: number) {
     this.card.emit(id);
   }
 
+  onAddToBag(id: number) {
+    this.addToBag.emit(id);
+  }
+    
 }

@@ -1,7 +1,7 @@
 @if (products) {
     <ul>
         @for (product of products; track product) {
-            <li><app-card-item title="Ver {{ product.name }}" [product]="product" (click)="onCardItem(product.id ?? 1)"></app-card-item></li>
+            <li><app-card-item title="Ver {{ product.name }}" [product]="product" (click)="onCardItem(product.id ?? 1)" (addToBag)="onAddToBag($event)"></app-card-item></li>
         }
     </ul>
 }

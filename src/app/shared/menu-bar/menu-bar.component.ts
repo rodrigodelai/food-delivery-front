@@ -16,7 +16,7 @@ import { OrderService } from '../../services/order.service';
 export class MenuBarComponent {
   
   @Input() canHide: boolean;
-  @HostBinding('class.hide') private hide: boolean;
+  @HostBinding('class.hide') hide: boolean;
   private lastTouchY: number;
   private static _badgeCounter: number;
   private static _pump: boolean = false;
@@ -37,10 +37,12 @@ export class MenuBarComponent {
     this.triggerPump();
   }
 
+  static clear() {
+    MenuBarComponent._badgeCounter = 0;
+  }
+
   private static triggerPump() {
     this._pump = true;
-
-    console.log(this._pump);
 
     setTimeout(() => {
       this._pump = false;
@@ -53,6 +55,18 @@ export class MenuBarComponent {
 
   pump() {
     return MenuBarComponent._pump;
+  }
+
+  incrementBadgeCounter() {
+    if (this.hide) {
+      this.hide = false;
+      
+      setTimeout(() => {
+        MenuBarComponent.badgeCounter += 1;
+      }, 450);
+    }
+    else
+      MenuBarComponent.badgeCounter += 1;
   }
 
   // Hide menu bar on mouse scroll

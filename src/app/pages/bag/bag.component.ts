@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MenuBarComponent } from '../../shared/menu-bar/menu-bar.component';
 import { BagDeliveryComponent } from './bag-delivery/bag-delivery.component';
 import { BagProductListComponent } from './bag-product-list/bag-product-list.component';
@@ -29,7 +29,10 @@ import { PageHeaderComponent } from '../../shared/page-header/page-header.compon
   styleUrl: './bag.component.css',
 })
 export class BagComponent {
+
   order!: Order;
+
+  @ViewChild(MenuBarComponent) menuBar!: MenuBarComponent;
 
   constructor(
     private orderService: OrderService,
@@ -79,7 +82,8 @@ export class BagComponent {
   emptyBag() {
     this.orderService.emptyBag();
     this.order = this.orderService.getOrder();
-    MenuBarComponent.badgeCounter = 0;
+    this.menuBar.hide = false;
+    MenuBarComponent.clear();
   }
 
   sendToHome() {
