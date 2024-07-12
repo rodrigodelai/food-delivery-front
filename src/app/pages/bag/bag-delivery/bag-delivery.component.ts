@@ -2,11 +2,12 @@ import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AddressComponent } from '../../../shared/address/address.component';
 
 @Component({
   selector: 'app-bag-delivery',
   standalone: true,
-  imports: [NgClass, MatIconModule],
+  imports: [NgClass, MatIconModule, AddressComponent],
   templateUrl: './bag-delivery.component.html',
   styleUrl: './bag-delivery.component.css'
 })
@@ -22,8 +23,8 @@ export class BagDeliveryComponent {
     this.clientAddress = 'Maria de Oliveira Maresguia, 6';
   }
 
-  changePickup() {
-    this.pickup = !this.pickup;
+  setPickup(value: boolean) {
+    this.pickup = value;
   }
 
   onAddress(){

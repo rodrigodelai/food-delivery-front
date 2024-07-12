@@ -1,0 +1,17 @@
+mat-icon {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 0.5rem #72727255);
+    background: linear-gradient(135deg, #909090, #757575) text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+mat-icon:hover {
+    filter: drop-shadow(0 0 0.3rem #FF873288);
+    background: linear-gradient(135deg, #ff984f, #ff6e07) text;
+}
+
+mat-icon:active {
+    transform: scale(1);
+}

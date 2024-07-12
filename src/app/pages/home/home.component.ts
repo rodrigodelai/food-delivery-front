@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { AddressComponent } from './address/address.component';
+import { AddressHeaderComponent } from './address-header/address-header.component';
 import { MenuBarComponent } from '../../shared/menu-bar/menu-bar.component';
 import { PromoBannerComponent } from './promo-banner/promo-banner.component';
 import { CategoriesComponent } from './categories/categories.component';
@@ -19,12 +19,12 @@ import { ConfirmationDialogService } from '../../services/confirmation-dialog.se
   standalone: true,
   imports: [
     RouterOutlet,
-    AddressComponent,
+    AddressHeaderComponent,
     MenuBarComponent,
     PromoBannerComponent,
     CategoriesComponent,
     ProductsComponent,
-    NgClass,
+    NgClass
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -69,6 +69,12 @@ export class HomeComponent {
       });
   }
 
+  showInfo() {
+  }
+
+  editAddress() {
+  }
+
   changeSelectedCategory(index: number) {
     this.products = this.categories[index].products;
   }
@@ -80,4 +86,5 @@ export class HomeComponent {
   incrementBadgeCounter() {
     this.menuBar.incrementBadgeCounter();
   }
+
 }

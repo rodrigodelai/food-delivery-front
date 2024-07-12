@@ -2,13 +2,17 @@
     height: 2.5rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0 .5rem;
+    align-items: end;
     gap: .5rem;
 }
 
-:host > div {
-    translate: 0 -.35rem;
+:host > div:first-child {
+    cursor: pointer;
+    transition: all .2s;
+}
+
+:host > div:first-child:active {
+    transform: scale(.99);
 }
 
 h2 {
@@ -50,10 +54,25 @@ span mat-icon {
     -webkit-box-orient: vertical;
 }
 
-[aria-label="Notifications icon"] {
-    transform: scale(1.4);
-    filter: drop-shadow(0 0 0.5rem #72727255);
-    background: linear-gradient(135deg, #909090, #757575) text;
-    -webkit-text-fill-color: transparent;
+.button button {
+    font-size: .8em;
+    color: rgba(0, 0, 0, 0.7);
+    background-color: transparent;
+    border: .1em solid #EEEEEE;
+    border-radius: .35em;
+    padding-right: .45em;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all .2s;
+}
+
+.button button:active {
+    transform: scale(.97);
+}
+
+.button mat-icon {
+    transform: scale(.6);
+    color: #FF8506;
+    translate: 0 -.05em;
 }

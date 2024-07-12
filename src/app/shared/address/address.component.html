@@ -1,0 +1,26 @@
+<div (click)="pickup ? showLocation() : onEdit()">
+    <h2>{{ pickup ? 'Retirar em' : 'Enviar para'}}</h2>
+    <span>
+        <mat-icon [hidden]="!pickup" aria-hidden="false" aria-label="Edit icon" fontIcon="keyboard_arrow_down"></mat-icon>
+    </span>
+    <div class="address">
+        <mat-icon aria-hidden="false" aria-label="Home icon" fontIcon="location_on"></mat-icon> 
+        <span>{{ address.street + ', ' + address.number }}</span>
+    </div>
+</div>
+@if (showButton) {
+    @if (pickup) {
+        <div class="button">
+            <button (click)="onEdit()" type="button">
+                <mat-icon aria-hidden="false" aria-label="Edit icon" fontIcon="map"></mat-icon> Mapa
+            </button>
+        </div>
+    }
+    @else {
+        <div class="button">
+            <button (click)="onMap()" type="button">
+                <mat-icon aria-hidden="false" aria-label="Edit icon" fontIcon="edit"></mat-icon> Editar
+            </button>
+        </div>
+    }
+}

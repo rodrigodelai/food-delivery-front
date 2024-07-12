@@ -1,37 +1,8 @@
 <nav class="menu">
-    <button type="button" [ngClass]="{active: !pickup}" (click)="changePickup()">Entrega</button>
-    <button type="button" [ngClass]="{active: pickup}" (click)="changePickup()">Retirada</button>
+    <button type="button" [ngClass]="{active: !pickup}" (click)="setPickup(false)">Entrega</button>
+    <button type="button" [ngClass]="{active: pickup}" (click)="setPickup(true)">Retirada</button>
 </nav>
 <div class="content">
-    <div class="text" (click)="onAddress()">
-        @if (pickup) {
-            <h2>Retirar em</h2>
-            <span>
-                <mat-icon aria-hidden="false" aria-label="Edit icon" fontIcon="keyboard_arrow_down" style="visibility: hidden"></mat-icon>
-            </span>
-            <div class="address">
-                <mat-icon aria-hidden="false" aria-label="Home icon" fontIcon="location_on"></mat-icon> 
-                <span>{{ storeAddress }}</span>
-            </div> 
-        }
-        @else {
-            <h2>Enviar para</h2>
-            <span>
-                <mat-icon aria-hidden="false" aria-label="Edit icon" fontIcon="keyboard_arrow_down"></mat-icon>
-            </span>
-            <div class="address">
-                <mat-icon aria-hidden="false" aria-label="Home icon" fontIcon="location_on"></mat-icon> 
-                <span>{{ clientAddress }}</span>
-            </div> 
-        }
-    </div>
-    <div class="button">
-        @if (!pickup) {
-            <button (click)="onEdit()" type="button">
-                <mat-icon aria-hidden="false" aria-label="Edit icon" fontIcon="edit"></mat-icon> Editar
-            </button>
-        }    
-    </div>
-    
+    <app-address [pickup]="pickup" [showButton]="true"></app-address>
 </div>
 

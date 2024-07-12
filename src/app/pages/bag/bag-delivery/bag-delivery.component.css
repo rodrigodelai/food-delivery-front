@@ -31,67 +31,11 @@
 }
 
 .content {
-    padding: 0;
+    margin: .5em 0 0 0;
     color: rgba(0, 0, 0, 0.7);
+}
+
+app-address {
     display: flex;
-    justify-content: space-between;
     align-items: end;
-    gap: .5em;
-}
-
-.text h2 {
-    display: inline;
-    font-weight: 400;
-    font-size: .9em;
-    color: rgba(0, 0, 0, 0.7);
-    filter: drop-shadow(0 0 0.2em rgb(255, 255, 255));
-    margin: 0;
-}
-
-.text span mat-icon {
-    translate: -.1em .35em;
-    transform: scale(.8);
-}
-
-.address {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.address mat-icon {
-    transform: scale(.8);
-    color: #FF8506;
-    margin-right: .15em;
-}
-
-.address span {
-    color: black;
-    font-weight: 500;
-    font-size: 1em;
-    filter: drop-shadow(.05em .05em 0.05em #EAEAEA);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    line-clamp: 1;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-}
-
-.button button {
-    font-size: .8em;
-    color: rgba(0, 0, 0, 0.7);
-    background-color: transparent;
-    border: .1em solid #EEEEEE;
-    border-radius: .35em;
-    padding-right: .45em;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-.button mat-icon {
-    transform: scale(.6);
-    color: #FF8506;
-    translate: 0 -.05em;
 }
