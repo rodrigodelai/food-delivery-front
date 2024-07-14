@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MenuBarComponent } from '../../shared/menu-bar/menu-bar.component';
 import { FavoritesSectionComponent } from './favorites-section/favorites-section.component';
 import { Router } from '@angular/router';
@@ -23,7 +23,10 @@ import { ConfirmationDialogService } from '../../services/confirmation-dialog.se
   styleUrl: './favorites.component.css',
 })
 export class FavoritesComponent {
+
   categories!: Category[];
+
+  @ViewChild(MenuBarComponent) menuBar!: MenuBarComponent;
 
   constructor(
     private router: Router,
@@ -49,12 +52,16 @@ export class FavoritesComponent {
       });
   }
 
-  onCardItem(id: number) {
+  toProduct(id: number) {
     this.router.navigate(['/product', id]);
   }
 
-  onHeart() {
+  refreshFavorites() {
     this.categories = this.filterCategories(this.categories);
+  }
+
+  incrementBadgeCounter() {
+    this.menuBar.incrementBadgeCounter();
   }
 
   private filterCategories(categories: Category[]) {

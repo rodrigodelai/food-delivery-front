@@ -15,10 +15,12 @@ export class FavoritesSectionComponent {
   @Input() products!: Product[];
   @Output() card: EventEmitter<number>;
   @Output() heart: EventEmitter<void>;
+  @Output() addToBag: EventEmitter<number>;
 
   constructor() {
     this.card = new EventEmitter<number>();
     this.heart = new EventEmitter<void>();
+    this.addToBag = new EventEmitter<number>();
   }
 
   onCardItem(id: number) {
@@ -27,6 +29,10 @@ export class FavoritesSectionComponent {
 
   onHeart() {
     this.heart.emit();
+  }
+
+  onAddToBag(id: number) {
+    this.addToBag.emit(id);
   }
 
 }

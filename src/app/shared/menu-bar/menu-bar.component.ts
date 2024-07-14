@@ -57,16 +57,16 @@ export class MenuBarComponent {
     return MenuBarComponent._pump;
   }
 
-  incrementBadgeCounter() {
+  incrementBadgeCounter(value: number = 1) {
     if (this.hide) {
       this.hide = false;
       
       setTimeout(() => {
-        MenuBarComponent.badgeCounter += 1;
+        MenuBarComponent.badgeCounter += value;
       }, 450);
     }
     else
-      MenuBarComponent.badgeCounter += 1;
+      MenuBarComponent.badgeCounter += value;
   }
 
   // Hide menu bar on mouse scroll

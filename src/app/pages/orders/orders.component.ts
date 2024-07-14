@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MenuBarComponent } from '../../shared/menu-bar/menu-bar.component';
 import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
 import { Order } from '../../model/order';
@@ -17,6 +17,8 @@ export class OrdersComponent {
 
   orders!: Order[];
 
+  @ViewChild(MenuBarComponent) menuBar!: MenuBarComponent;
+
   constructor(private orderService: OrderService) {
     this.orderService.getHistory().subscribe(history => this.orders = history);
   }
@@ -26,7 +28,7 @@ export class OrdersComponent {
       delete item.id;
       this.orderService.addOrderItem(item);
     })
-    MenuBarComponent.badgeCounter += this.orders[index].items.length;
+    this.menuBar.incrementBadgeCounter(this.orders[index].items.length);
   }
 
 }

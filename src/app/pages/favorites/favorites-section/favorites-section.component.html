@@ -3,7 +3,7 @@
     <hr>
     <ul>
         @for (product of products; track product) {
-            <li><app-card-item title="Ver {{ product.name }}" [product]="product" (click)="onCardItem(product.id ?? 1)" (heart)="onHeart()"></app-card-item></li>
+            <li><app-card-item title="Ver {{ product.name }}" [product]="product" (click)="onCardItem(product.id ?? 1)" (heart)="onHeart()" (addToBag)="onAddToBag(product.id ?? 1)"></app-card-item></li>
         }
     </ul>
 }
