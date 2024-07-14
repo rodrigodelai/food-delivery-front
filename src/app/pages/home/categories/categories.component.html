@@ -1,7 +1,7 @@
 @if (categories) {
     <ul>
         @for (category of categories; track category; let index = $index) {
-            <li (click)="onCategory(index, $event)" [ngClass]="{ active: index == selectedCategory }">{{ category.name }}</li>
+            <li #listItem (click)="onCategory(index, $event)" [ngClass]="{ active: index == selectedCategoryIndex }">{{ category.name }}</li>
         }
     </ul>    
 }

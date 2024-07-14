@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Category } from '../../../model/category';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -10,33 +10,43 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css'
 })
-export class CategoriesComponent {
+export class CategoriesComponent implements AfterViewInit {
 
   @Input() categories!: Category[];
-  selectedCategory!: number;
-  @Output() selected!: EventEmitter<number>;
+  @Input() selectedCategoryIndex!: number;
+  @Output() selected: EventEmitter<number>;
+
+  @ViewChildren('listItem') listItems!: QueryList<ElementRef>;
 
   constructor() {
-    this.selectedCategory = 0;
     this.selected = new EventEmitter<number>;
   }
 
+  ngAfterViewInit() {
+    if (this.selectedCategoryIndex)
+      this.onCategoryByIndex(this.selectedCategoryIndex);
+  }
+
   onCategory(index: number, event: MouseEvent) {
-    this.scrollAndCentralizeElement(event);
-    this.selectedCategory = index;
+    this.scrollAndCentralizeElement(event.target as HTMLLIElement);
     this.selected.emit(index);
   }
-  
-  private scrollAndCentralizeElement(event: MouseEvent) {
-    const li = event.target as HTMLElement;
-    const ul = li.parentElement as HTMLElement;
+
+  onCategoryByIndex(index: number) {
+    this.scrollAndCentralizeElement(this.listItems.get(index)?.nativeElement, false);
+    this.selected.emit(index);
+  }
+
+  private scrollAndCentralizeElement(element: HTMLLIElement, smooth: boolean = true) {
+    const li = element;
+    const ul = li.parentElement as HTMLUListElement;
 
     const liOffsetLeft = li.getBoundingClientRect().left - ul.getBoundingClientRect().left + ul.scrollLeft;
     const scrollPosition = liOffsetLeft - (ul.offsetWidth / 2) + (li.offsetWidth / 2);
 
     ul.scrollTo({
       left: scrollPosition,
-      behavior: 'smooth'
+      behavior: smooth ? 'smooth' : 'instant'
     });
   }
 }

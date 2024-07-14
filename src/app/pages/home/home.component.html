@@ -2,7 +2,7 @@
 <hr>
 <app-promo-banner [banners]="banners" (banner)="toProduct($event)"></app-promo-banner>
 <hr>
-<app-categories [categories]="categories" (selected)="changeSelectedCategory($event)"></app-categories>
+<app-categories [categories]="categories" [selectedCategoryIndex]="selectedCategoryIndex" (selected)="changeSelectedCategory($event)"></app-categories>
 <hr>
 <app-products [products]="products" (card)="toProduct($event)" (addToBag)="incrementBadgeCounter()" ></app-products>
 <app-menu-bar [canHide]="true" ></app-menu-bar>

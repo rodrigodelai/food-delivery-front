@@ -13,6 +13,7 @@ import { BannerService } from '../../services/banner.service';
 import { CategoryService } from '../../services/category.service';
 import { catchError, of } from 'rxjs';
 import { ConfirmationDialogService } from '../../services/confirmation-dialog.service';
+import { StateService } from '../../services/state.service';
 
 @Component({
   selector: 'app-home',
@@ -24,25 +25,28 @@ import { ConfirmationDialogService } from '../../services/confirmation-dialog.se
     PromoBannerComponent,
     CategoriesComponent,
     ProductsComponent,
-    NgClass
+    NgClass,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-
+  
   banners!: Banner[];
   categories!: Category[];
   products!: Product[];
+  selectedCategoryIndex: number;
 
   @ViewChild(MenuBarComponent) menuBar!: MenuBarComponent;
 
   constructor(
     private bannerService: BannerService,
     private categoryService: CategoryService,
-    private router: Router,
-    private dialogService: ConfirmationDialogService
+    private dialogService: ConfirmationDialogService,
+    private stateService: StateService,
+    private router: Router
   ) {
+    this.selectedCategoryIndex = this.stateService.getLastCategoryIndex();
     this.bannerService
       .list()
       .pipe(
@@ -65,18 +69,18 @@ export class HomeComponent {
       .subscribe((categories) => {
         categoryService.addPromoCategory(categories);
         this.categories = categories;
-        this.products = categories[0].products;
+        this.products = categories[this.selectedCategoryIndex].products;
       });
   }
 
-  showInfo() {
-  }
+  showInfo() {}
 
-  editAddress() {
-  }
+  editAddress() {}
 
   changeSelectedCategory(index: number) {
+    this.selectedCategoryIndex = index;
     this.products = this.categories[index].products;
+    this.stateService.setLastCategoryIndex(index);
   }
 
   toProduct(id: number) {
@@ -86,5 +90,4 @@ export class HomeComponent {
   incrementBadgeCounter() {
     this.menuBar.incrementBadgeCounter();
   }
-
 }

@@ -11,6 +11,7 @@ import { Option } from '../../model/option';
 import { OrderService } from '../../services/order.service';
 import { Operation } from '../../model/operation';
 import { FavoritesService } from '../../services/favorites.service';
+import { StateService } from '../../services/state.service';
 
 @Component({
   selector: 'app-product',
@@ -29,6 +30,7 @@ export class ProductComponent {
               private route: ActivatedRoute,
               private location: Location,
               private orderService: OrderService,
+              private stateService: StateService,
               public favoritesService: FavoritesService) {
     this.route.data.subscribe(data => {
       this.product = data['product'];
@@ -64,6 +66,7 @@ export class ProductComponent {
     this.orderService.addNotesToItem(this.notes.text);
     this.orderService.addItemToOrder();
     this.router.navigate(['bag']);
+    this.stateService.setLastCategoryIndex(0);
   }
   
 }
