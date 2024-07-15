@@ -15,7 +15,6 @@ button {
     font-size: 1em;
     margin: .75em 0;
     width: 100%;
-    align-self: center;
     height: 3em;
     background: linear-gradient(135deg, #ff984f, #ff6e07);
     border: none;
@@ -24,8 +23,25 @@ button {
     cursor: pointer;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     transition: all .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 button:active {
     transform: scale(.98);
+}
+
+button > span:first-of-type {
+    position: absolute;
+    transition: all 1s ease-in-out;
+}
+
+button > span:last-of-type {
+    position: absolute;
+    transition: all 1s .8s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
 }

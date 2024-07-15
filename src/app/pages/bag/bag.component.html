@@ -5,5 +5,5 @@
 <hr>
 <app-bag-order-summary [subtotal]="order.subtotal" [deliveryFee]="order.deliveryFee" [taxes]="order.taxes"></app-bag-order-summary>
 <hr>
-<app-bag-payment [total]="getTotal()" (submit)="onSubmit()"></app-bag-payment>
+<app-bag-payment [total]="getTotal()" [sending]="sending" (submit)="onSubmit()"></app-bag-payment>
 <app-menu-bar [canHide]="true"></app-menu-bar>

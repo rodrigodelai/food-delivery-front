@@ -2,4 +2,7 @@
   <span>Total</span>
   <span>{{ total | currency : "BRL" }}</span>
 </h2>
-<button type="button" (click)="sendOrder()">Enviar pedido</button>
+<button type="button" (click)="sendOrder()">
+  <span [ngClass]="{ hidden: sending }">Enviar pedido</span>
+  <span [ngClass]="{ hidden: !sending }">Enviando...</span>
+</button>

@@ -31,6 +31,7 @@ import { PageHeaderComponent } from '../../shared/page-header/page-header.compon
 export class BagComponent {
 
   order!: Order;
+  sending: boolean;
 
   @ViewChild(MenuBarComponent) menuBar!: MenuBarComponent;
 
@@ -41,6 +42,7 @@ export class BagComponent {
     private snackBar: MatSnackBar 
   ) {
     this.order = this.orderService.getOrder();
+    this.sending = false;
   }
 
   private functionMap = new Map<string, Function>([
@@ -53,6 +55,8 @@ export class BagComponent {
   onSubmit() {
     if (!this.order.items.length)
       this.snackBar.open('Sua sacola está vazia.', '✖', { duration: 7000 });
+    else if (this.sending)
+      this.snackBar.open('Seu pedido está sendo processado. Por favor, aguarde.', '✖', { duration: 7000 });
     else
       this.dialogService.openDialog('200ms', '100ms', DialogDataOptions.SEND_ORDER, this.functionMap);
   }
@@ -66,9 +70,11 @@ export class BagComponent {
   }
 
   sendOrder() {
+    this.sending = true;
     this.orderService.sendOrder()
     .pipe(catchError(() => {
       this.snackBar.open('Houve um problema na comunicação com o servidor. Tente novamente mais tarde.', '✖', { duration: 7000 })
+      this.sending = false;
       return EMPTY;
     }))
     .subscribe((response) => {
