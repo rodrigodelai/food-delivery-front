@@ -1,30 +1,29 @@
-<div class="text">
+<div lang="pt-BR" class="text">
     <h2>{{ item.product.name }}</h2>
     @if ( item.product.promoPrice) {
         <span>Promo</span>
     }
-    <ul>    
+    <ul #orderDetails (click)="changeSeeMore($event)" [title]="seeMore ? 'Ver menos' : 'Ver mais'">
         @for (list of item.orderOptionsLists; track list) {
-            <li>{{ agregateOptions(list) }}</li>
+            <li #option [@toggle]="shouldBeVisible(option)? 'show' : 'hide'" [@toggleLine]="!shouldBeVisible(option) && seeMore ? 'standard' : 'one-line'">{{ agregateOptions(list) }}</li>
         } @empty {
-            <li [ngClass]="{ two_lines: !item.notes }"> Descrição: {{ item.product.description }}</li>
+            <li [@toggleLine]="seeMore ? 'standard' : item.notes ? 'one-line' : 'two-lines'"> Descrição: {{ item.product.description }}</li>
         }
-
-        @if ((item.orderOptionsLists?.length ?? 0) == 1) {
-            <li> Observações: {{ item.notes }} </li>
-        }
+        @if (item.notes) {
+            <li #obs [@toggle]="shouldBeVisible(obs)? 'show' : 'hide'"> Observações: {{ item.notes }} </li>
+        }     
     </ul>
     <span>{{ item.product.promoPrice | currency: 'BRL'}}</span>
     <span [ngClass]="{ line_through: item.product.promoPrice }">{{ item.product.price | currency: 'BRL' }}</span>
 </div>
 <div class="image">
-    <img src="{{ API_URL + item.product.imageName }}" alt="Burguer image">
+    <img [src]="IMG_SRC" alt="Burguer image">
     <div class="buttons" >
-        <button type="button" (click)="remove.emit(index)">
+        <button type="button" (click)="onRemove($event)">
             <mat-icon aria-hidden="false" aria-label="Remove icon" fontIcon="remove_circle_outline"></mat-icon>
         </button>
         <p>{{ item.quantity }}</p>
-        <button type="button" (click)="add.emit(index)">
+        <button type="button" (click)="onAdd($event)">
             <mat-icon aria-hidden="false" aria-label="Add icon" fontIcon="add_circle_outline"></mat-icon>
         </button>
     </div>

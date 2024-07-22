@@ -15,6 +15,7 @@
 .text h2 {
     font-size: 1.1em;
     display: inline;
+    cursor: pointer;
 }
 
 .text h2 + span {
@@ -28,6 +29,7 @@
     margin-left: 1em;
     vertical-align: middle;
     translate: 0 -.1em;
+    cursor: pointer;
 }
 
 .text ul {
@@ -36,16 +38,34 @@
     padding-left: .5em;
     list-style: disc;
     margin: .4em 0;
+    cursor: pointer;
+}
+
+.text ul.wrap li {
+    white-space: wrap;
 }
 
 .text li {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    hyphens: auto;
 }
 
 .text li::before {
     content: '• ';
+}
+
+.text li.wrap {
+    white-space: wrap;
+}
+
+.see-more::after {
+    content: ' (ver mais)';
+}
+
+.see-less::after {
+    content: ' (ver menos)';
 }
 
 .text .line_through {
@@ -58,6 +78,7 @@
     text-decoration: none;
     font-weight: 500;
     margin-right: .5em;
+    cursor: pointer;
 }
 
 .image {
@@ -93,7 +114,7 @@
     translate: 0 0.1em;
 }
 
-ul li.two_lines {
+ul li.two-lines {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
