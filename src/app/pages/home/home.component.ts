@@ -14,6 +14,7 @@ import { CategoryService } from '../../services/category.service';
 import { catchError, of } from 'rxjs';
 import { ConfirmationDialogService } from '../../services/confirmation-dialog.service';
 import { StateService } from '../../services/state.service';
+import { DIALOG_DATA } from '../../model/dialog-data';
 
 @Component({
   selector: 'app-home',
@@ -51,11 +52,7 @@ export class HomeComponent {
       .list()
       .pipe(
         catchError(() => {
-          this.dialogService.openSimpleDialog('200ms', '100ms', {
-            message:
-              'Houve um problema na comunicação com o servidor. Tente novamente mais tarde. Se o problema persistir, contate o suporte.',
-            confirmMsg: 'Ok',
-          });
+          this.dialogService.open(DIALOG_DATA['UNAVAILABLE']);
           return of([] as Banner[]);
         })
       )

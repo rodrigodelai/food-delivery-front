@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '../../services/snackbar.service';
+import { SNACKBAR_DATA } from '../../model/snackbar-data';
 
 @Component({
   selector: 'app-info-button',
@@ -11,10 +12,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class InfoButtonComponent {
 
-  constructor(private snackbar: MatSnackBar) { }
+  constructor(private snackbar: SnackbarService) { }
 
   onInfo() {
-    this.snackbar.open('Recurso indisponível.', '✖', { duration: 3000 });
+    this.snackbar.open(SNACKBAR_DATA['UNAVAILABLE']);
   }
 
 }

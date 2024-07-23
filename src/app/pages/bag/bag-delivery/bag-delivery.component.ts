@@ -1,8 +1,9 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddressComponent } from '../../../shared/address/address.component';
+import { SnackbarService } from '../../../services/snackbar.service';
+import { SNACKBAR_DATA } from '../../../model/snackbar-data';
 
 @Component({
   selector: 'app-bag-delivery',
@@ -17,7 +18,7 @@ export class BagDeliveryComponent {
   storeAddress: string;
   clientAddress: string;
 
-  constructor(private snackbar: MatSnackBar) {
+  constructor(private snackbar: SnackbarService) {
     this.pickup = true;
     this.storeAddress = 'Av. das Nações Unidas, 1000';
     this.clientAddress = 'Maria de Oliveira Maresguia, 6';
@@ -36,7 +37,7 @@ export class BagDeliveryComponent {
   }
 
   private unavailable() {
-    this.snackbar.open('Recurso ainda indisponível', '✖', { duration: 7000 });
+    this.snackbar.open(SNACKBAR_DATA['UNAVAILABLE']);
   }
 
 }

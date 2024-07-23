@@ -9,6 +9,7 @@ import { PageHeaderComponent } from '../../shared/page-header/page-header.compon
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { catchError, of } from 'rxjs';
 import { ConfirmationDialogService } from '../../services/confirmation-dialog.service';
+import { DIALOG_DATA } from '../../model/dialog-data';
 
 @Component({
   selector: 'app-favorites',
@@ -38,11 +39,7 @@ export class FavoritesComponent {
       .list()
       .pipe(
         catchError(() => {
-          this.dialogService.openSimpleDialog('200ms', '100ms', {
-            message:
-              'Houve um problema na comunicação com o servidor. Tente novamente mais tarde. Se o problema persistir, contate o suporte.',
-            confirmMsg: 'Ok',
-          });
+          this.dialogService.open(DIALOG_DATA['UNAVAILABLE']);
           return of([] as Category[]);
         })
       )

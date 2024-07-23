@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Address } from '../../model/address';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '../../services/snackbar.service';
+import { SNACKBAR_DATA } from '../../model/snackbar-data';
 
 @Component({
   selector: 'app-address',
@@ -16,7 +17,7 @@ export class AddressComponent {
   @Input() showButton: boolean; 
   @Input() pickup: boolean;
 
-  constructor(private snackbar: MatSnackBar) {
+  constructor(private snackbar: SnackbarService) {
     this.address = {
       street: 'Av. das Nações Unidas',
       number: 1000,
@@ -31,15 +32,15 @@ export class AddressComponent {
   }
   
   onEdit() {
-    this.snackbar.open('Recurso indisponível.', '✖', { duration: 3000 });
+    this.snackbar.open(SNACKBAR_DATA['UNAVAILABLE']);
   }
 
   showLocation() {
-    this.snackbar.open('Recurso indisponível.', '✖', { duration: 3000 });
+    this.snackbar.open(SNACKBAR_DATA['UNAVAILABLE']);
   }
 
   onMap() {
-    this.snackbar.open('Recurso indisponível.', '✖', { duration: 3000 });
+    this.snackbar.open(SNACKBAR_DATA['UNAVAILABLE']);
   }
 
 }

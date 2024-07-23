@@ -5,8 +5,6 @@ import { FavoritesService } from '../../services/favorites.service';
 import { environment } from '../../../environments/environment';
 import { OrderService } from '../../services/order.service';
 import { Product } from '../../model/product';
-import { MenuBarComponent } from '../menu-bar/menu-bar.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-card-item',
@@ -25,8 +23,7 @@ export class CardItemComponent {
 
   constructor(
     private favoritesService: FavoritesService,
-    private orderService: OrderService,
-    private snackbar: MatSnackBar
+    private orderService: OrderService
   ) {
     this.fontIcon = 'favorite_outline';
     this.product = {

@@ -7,12 +7,12 @@ import { BagPaymentComponent } from './bag-payment/bag-payment.component';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../model/order';
 import { Router } from '@angular/router';
-import { DialogDataOptions } from '../../model/dialog-data';
-import { ConfirmationDialogService } from '../../services/confirmation-dialog.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { EMPTY, catchError } from 'rxjs';
 import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
-
+import { ConfirmationDialogService } from '../../services/confirmation-dialog.service';
+import { DIALOG_DATA } from '../../model/dialog-data';
+import { SnackbarService } from '../../services/snackbar.service';
+import { SNACKBAR_DATA } from '../../model/snackbar-data';
 
 @Component({
   selector: 'app-bag',
@@ -39,30 +39,36 @@ export class BagComponent {
     private orderService: OrderService,
     private dialogService: ConfirmationDialogService,
     private router: Router,
-    private snackBar: MatSnackBar 
+    private snackbarService: SnackbarService 
   ) {
     this.order = this.orderService.getOrder();
     this.sending = false;
   }
 
-  private functionMap = new Map<string, Function>([
-    ['sendOrder', this.sendOrder.bind(this)],
-    ['emptyBag', this.emptyBag.bind(this)],
-    ['deleteItem', this.orderService.deleteItemWithoutContext.bind(this)],
-    ['', (() => {}).bind(this)]
-  ]);
-
   onSubmit() {
     if (!this.order.items.length)
-      this.snackBar.open('Sua sacola está vazia.', '✖', { duration: 7000 });
+      this.snackbarService.open(SNACKBAR_DATA['EMPTY_BAG']);
     else if (this.sending)
-      this.snackBar.open('Seu pedido está sendo processado. Por favor, aguarde.', '✖', { duration: 7000 });
-    else
-      this.dialogService.openDialog('200ms', '100ms', DialogDataOptions.SEND_ORDER, this.functionMap);
+      this.snackbarService.open(SNACKBAR_DATA['SENDING']);
+    else {
+      this.dialogService
+        .open(DIALOG_DATA['SEND_ORDER'])
+        .afterClosed()
+        .subscribe((confirmation: boolean) => {
+          if (confirmation) 
+            this.sendOrder();
+      });
+    }
   }
 
   onEmptyBag() {
-    this.dialogService.openDialog('200ms', '100ms', DialogDataOptions.EMPTY_BAG, this.functionMap);
+    this.dialogService
+      .open(DIALOG_DATA['EMPTY_BAG'])
+      .afterClosed()
+      .subscribe((confirmation: boolean) => {
+        if (confirmation) 
+          this.emptyBag();
+      });
   }
 
   getTotal() {
@@ -73,12 +79,12 @@ export class BagComponent {
     this.sending = true;
     this.orderService.sendOrder()
     .pipe(catchError(() => {
-      this.snackBar.open('Houve um problema na comunicação com o servidor. Tente novamente mais tarde.', '✖', { duration: 7000 })
+      this.dialogService.open(DIALOG_DATA['UNAVAILABLE']);
       this.sending = false;
       return EMPTY;
     }))
     .subscribe((response) => {
-      this.snackBar.open('Seu pedido foi enviado com sucesso!', '✖', { duration: 7000 });
+      this.snackbarService.open(SNACKBAR_DATA['SUCCESS']);
       this.orderService.saveOrder(response.id);
       this.router.navigate(['/orders']);
       this.emptyBag();
@@ -109,14 +115,17 @@ export class BagComponent {
 
     if (item.quantity === 0) {
       item.quantity += 1;
-      const dialogRef = this.dialogService.openDialog('200ms', '100ms', DialogDataOptions.DELETE_ITEM, this.functionMap, { index: index, service: this.orderService });
-      
-      dialogRef.afterClosed().subscribe((confirm) => {
-        if (confirm) {
-          this.order = this.orderService.getOrder();
-          MenuBarComponent.badgeCounter -= 1;
-        }
-      })
+
+      this.dialogService
+        .open(DIALOG_DATA['DELETE_ITEM'])
+        .afterClosed()
+        .subscribe((confirmation: boolean) => {
+          if (confirmation) {
+            this.orderService.deleteItem(index);
+            this.order = this.orderService.getOrder();
+            MenuBarComponent.badgeCounter -= 1;
+          }
+        });
     }
     else 
       this.orderService.updateItem(item, index);

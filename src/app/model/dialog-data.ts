@@ -2,19 +2,20 @@ export interface DialogData {
     title: string,
     message: string,
     confirmMsg: string,
-    cancelMsg: string
-    confirmFunctionName: string,
-    cancelFunctionName: string
+    cancelMsg?: string
 }
 
-export const DialogDataOptions = {
+export const DIALOG_DATA: { [key: string]: DialogData } = {
     SEND_ORDER: { 
-        title: 'Confirmar envio', message: 'Tem certeza que deseja enviar o pedido?', confirmMsg: 'Sim', cancelMsg: 'Não', confirmFunctionName: 'sendOrder', cancelFunctionName: '' 
+        title: 'Confirmar envio', message: 'Após conferir o endereço e os itens escolhidos, deseja prosseguir?', confirmMsg: 'Sim', cancelMsg: 'Não'
     },
     EMPTY_BAG: { 
-        title: 'Confirmar deleção', message: 'Tem certeza que deseja esvaziar a sacola?', confirmMsg: 'Sim', cancelMsg: 'Não', confirmFunctionName: 'emptyBag', cancelFunctionName: ''
+        title: 'Confirmar remoção', message: 'Todos os itens serão removidos da sacola. Deseja prosseguir?', confirmMsg: 'Sim', cancelMsg: 'Não'
     },
     DELETE_ITEM: { 
-        title: 'Confirmar remoção', message: 'Tem certeza que deseja remover o item da sacola?', confirmMsg: 'Sim', cancelMsg: 'Não', confirmFunctionName: 'deleteItem', cancelFunctionName: '' 
+        title: 'Confirmar remoção', message: 'O item será removido da sacola. Deseja prosseguir?', confirmMsg: 'Sim', cancelMsg: 'Não' 
+    },
+    UNAVAILABLE: {
+        title: 'Servidor indisponível', message: 'Houve um problema na comunicação com o servidor. Tente novamente mais tarde. Se o problema persistir, contate o suporte.', confirmMsg: 'Ok'
     }
 }
