@@ -13,8 +13,12 @@
             <li #obs [@toggle]="shouldBeVisible(obs)? 'show' : 'hide'"> Observações: {{ item.notes }} </li>
         }     
     </ul>
-    <span>{{ item.product.promoPrice | currency: 'BRL'}}</span>
+    <span>{{ item.product.promoPrice | currency: 'BRL' }}</span>
     <span [ngClass]="{ line_through: item.product.promoPrice }">{{ item.product.price | currency: 'BRL' }}</span>
+    @if (item.orderOptionsLists?.length) {
+        <span class="additional">+</span>
+        <span class="additional">{{ item.price - (item.product.promoPrice ?? item.product.price) | currency: 'BRL' }}</span>
+    }
 </div>
 <div class="image">
     <img [src]="IMG_SRC" alt="Burguer image">
