@@ -1,3 +1,3 @@
-# FoodDelivery
+# Food Delivery Web App
 
-Work in progress. The first access may take up to 50 seconds due to backend hosting limitations. Deploy [here](https://delai-food-delivery.netlify.app). Backend [here](https://github.com/rodrigodelai/food-delivery-back).
+Since the purpose of this project is to enhance some skills I've learned, my university semester has just started again and my recent internship is keeping me busy, I’ve decided to pause this development for a while. I plan to return to it as soon as I have more free time. Until then, feel free to explore what has already been accomplished. Please note that the first access may take up to 50 seconds due to backend hosting limitations. You can find the deployment [here](https://delai-food-delivery.netlify.app) and the backend [here](https://github.com/rodrigodelai/food-delivery-back).
